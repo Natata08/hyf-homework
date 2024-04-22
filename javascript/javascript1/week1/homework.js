@@ -28,6 +28,7 @@ if (shouldShowResultInDogYears) {
 console.log(messageAboutDogAge);
 
 // Housey pricey (A house price estimator)
+
 function estimateHousePrice(
   name,
   houseWidthInM,
@@ -49,5 +50,42 @@ function estimateHousePrice(
   }
   console.log(message);
 }
+
 estimateHousePrice('Peter', 8, 10, 10, 100, 2500000);
 estimateHousePrice('Julia', 5, 8, 11, 70, 1000000);
+
+// Ez Namey (Startup name generator)
+
+const firstWords = [
+  'Breezy',
+  'Global',
+  'Corporate',
+  'Quick',
+  'Bright',
+  'Smart',
+  'Innovative',
+  'Dynamic',
+  'Promising',
+  'Secure',
+];
+const secondWords = [
+  'Solutions',
+  'Systems',
+  'Technologies',
+  'Services',
+  'Designs',
+  'Concepts',
+  'Insights',
+  'Ventures',
+  'Networks',
+  'Analytics',
+];
+
+const firstWord = firstWords[Math.floor(Math.random() * 10)];
+const secondWord = secondWords[Math.floor(Math.random() * 10)];
+const charactersAmount = firstWord.length + secondWord.length;
+const startupName = '"' + firstWord + ' ' + secondWord + '"';
+const strartupMessage =
+  'The startup: ' + startupName + ' contains ' + charactersAmount + ' characters';
+
+console.log(strartupMessage);
