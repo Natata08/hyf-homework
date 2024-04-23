@@ -7,7 +7,7 @@
 const yearOfBirth = 1986; //number
 const yearFuture = 2025; //number
 const age = yearFuture - yearOfBirth;
-const messageAboutFutureAge = 'You will be ' + age + ' years old in ' + yearFuture;
+const messageAboutFutureAge = `You will be ${age} years old in ${yearFuture}.`;
 
 console.log(messageAboutFutureAge);
 
@@ -20,7 +20,7 @@ const shouldShowResultInDogYears = false; //boolean
 const dogYear = shouldShowResultInDogYears
   ? (dogYearFuture - dogYearOfBirth) * 7
   : dogYearFuture - dogYearOfBirth;
-const messageAboutDogAge = 'Your dog will be ' + dogYear + ' human years old in ' + dogYearFuture;
+const messageAboutDogAge = `Your dog will be ${dogYear} human years old in ${dogYearFuture}.`;
 
 console.log(messageAboutDogAge);
 
@@ -40,8 +40,7 @@ function estimateHousePrice(
     housePrice < announcedHousePrice
       ? 'too much'
       : 'too little (or just the right amount of money)';
-  const message =
-    name + ' is paying ' + priceEstimation + ' for this house. The real price is: ' + housePrice;
+  const message = `${name} is paying ${priceEstimation} for this house. The real price is: ${housePrice}.`;
 
   console.log(message);
 }
@@ -79,8 +78,7 @@ const secondWords = [
 const firstWord = firstWords[Math.floor(Math.random() * 10)];
 const secondWord = secondWords[Math.floor(Math.random() * 10)];
 const charactersAmount = firstWord.length + secondWord.length;
-const startupName = '"' + firstWord + ' ' + secondWord + '"';
-const strartupMessage =
-  'The startup: ' + startupName + ' contains ' + charactersAmount + ' characters';
+const startupName = `${firstWord} ${secondWord}`;
+const startupMessage = `The startup: "${startupName}" contains ${charactersAmount} characters.`;
 
-console.log(strartupMessage);
+console.log(startupMessage);
