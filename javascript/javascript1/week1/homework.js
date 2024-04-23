@@ -7,9 +7,9 @@
 const yearOfBirth = 1986; //number
 const yearFuture = 2025; //number
 const age = yearFuture - yearOfBirth;
-const messageAboutFututeAge = 'You will be ' + age + ' years old in ' + yearFuture;
+const messageAboutFutureAge = 'You will be ' + age + ' years old in ' + yearFuture;
 
-console.log(messageAboutFututeAge);
+console.log(messageAboutFutureAge);
 
 // Goodboy-Oldboy (A dog age calculator)
 
