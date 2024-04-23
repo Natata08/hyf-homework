@@ -75,10 +75,10 @@ const secondWords = [
   'Analytics',
 ];
 
-const firstWord = firstWords[Math.floor(Math.random() * 10)];
-const secondWord = secondWords[Math.floor(Math.random() * 10)];
-const charactersAmount = firstWord.length + secondWord.length;
-const startupName = `${firstWord} ${secondWord}`;
-const startupMessage = `The startup: "${startupName}" contains ${charactersAmount} characters.`;
+const randomFirstWord = firstWords[Math.floor(Math.random() * 10)];
+const randomSecondWord = secondWords[Math.floor(Math.random() * 10)];
+const charactersLength = randomFirstWord.length + randomSecondWord.length;
+const startupName = `${randomFirstWord} ${randomSecondWord}`;
+const startupMessage = `The startup: "${startupName}" contains ${charactersLength} characters.`;
 
 console.log(startupMessage);
