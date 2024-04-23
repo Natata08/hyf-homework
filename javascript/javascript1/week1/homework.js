@@ -15,15 +15,12 @@ console.log(messageAboutFutureAge);
 
 const dogYearOfBirth = 2017;
 const dogYearFuture = 2027;
-const dogYear = dogYearFuture - dogYearOfBirth;
 const shouldShowResultInDogYears = false; //boolean
-let messageAboutDogAge;
 
-if (shouldShowResultInDogYears) {
-  messageAboutDogAge = 'Your dog will be ' + dogYear * 7 + ' dog years old in ' + dogYearFuture;
-} else {
-  messageAboutDogAge = 'Your dog will be ' + dogYear + ' human years old in ' + dogYearFuture;
-}
+const dogYear = shouldShowResultInDogYears
+  ? (dogYearFuture - dogYearOfBirth) * 7
+  : dogYearFuture - dogYearOfBirth;
+const messageAboutDogAge = 'Your dog will be ' + dogYear + ' human years old in ' + dogYearFuture;
 
 console.log(messageAboutDogAge);
 
@@ -39,15 +36,13 @@ function estimateHousePrice(
 ) {
   const volumeInMeters = houseWidthInM * houseHeightInM * houseDepthInM;
   const housePrice = volumeInMeters * 2.5 * 1000 + gardenSizeInM2 * 300;
-  let message;
-  if (housePrice < announcedHousePrice) {
-    message = name + ' is paying too much for this house. The real price is: ' + housePrice;
-  } else {
-    message =
-      name +
-      ' is paying too little (or just the right amount of money) for this house. The real price is: ' +
-      housePrice;
-  }
+  const priceEstimation =
+    housePrice < announcedHousePrice
+      ? 'too much'
+      : 'too little (or just the right amount of money)';
+  const message =
+    name + ' is paying ' + priceEstimation + ' for this house. The real price is: ' + housePrice;
+
   console.log(message);
 }
 
