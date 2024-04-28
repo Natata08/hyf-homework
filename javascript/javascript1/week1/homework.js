@@ -16,11 +16,14 @@ console.log(messageAboutFutureAge);
 const dogYearOfBirth = 2017;
 const dogYearFuture = 2027;
 const shouldShowResultInDogYears = false; //boolean
+let dogYear = dogYearFuture - dogYearOfBirth;
+let prefix = 'human';
+if (shouldShowResultInDogYears) {
+  dogYear *= 7;
+  prefix = 'dog';
+}
 
-const dogYear = shouldShowResultInDogYears
-  ? (dogYearFuture - dogYearOfBirth) * 7
-  : dogYearFuture - dogYearOfBirth;
-const messageAboutDogAge = `Your dog will be ${dogYear} human years old in ${dogYearFuture}.`;
+const messageAboutDogAge = `Your dog will be ${dogYear} ${prefix} years old in ${dogYearFuture}.`;
 
 console.log(messageAboutDogAge);
 
