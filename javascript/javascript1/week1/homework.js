@@ -16,12 +16,8 @@ console.log(messageAboutFutureAge);
 const dogYearOfBirth = 2017;
 const dogYearFuture = 2027;
 const shouldShowResultInDogYears = false; //boolean
-let dogYear = dogYearFuture - dogYearOfBirth;
-let prefix = 'human';
-if (shouldShowResultInDogYears) {
-  dogYear *= 7;
-  prefix = 'dog';
-}
+const dogYear = (dogYearFuture - dogYearOfBirth) * (shouldShowResultInDogYears ? 7 : 1);
+const prefix = shouldShowResultInDogYears ? 'dog' : 'human';
 
 const messageAboutDogAge = `Your dog will be ${dogYear} ${prefix} years old in ${dogYearFuture}.`;
 
@@ -78,8 +74,8 @@ const secondWords = [
   'Analytics',
 ];
 
-const randomFirstWord = firstWords[Math.floor(Math.random() * 10)];
-const randomSecondWord = secondWords[Math.floor(Math.random() * 10)];
+const randomFirstWord = firstWords[Math.floor(Math.random() * firstWords.length)];
+const randomSecondWord = secondWords[Math.floor(Math.random() * secondWords.length)];
 const charactersLength = randomFirstWord.length + randomSecondWord.length;
 const startupName = `${randomFirstWord} ${randomSecondWord}`;
 const startupMessage = `The startup: "${startupName}" contains ${charactersLength} characters.`;
