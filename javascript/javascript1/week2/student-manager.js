@@ -1,3 +1,5 @@
+// Student manager
+
 const class07Students = [];
 function addStudentToClass(studentName) {
   if ((class07Students.length < 6 && studentName) || studentName === 'Margrethe II') {
@@ -14,5 +16,18 @@ function addStudentToClass(studentName) {
 }
 
 function getNumberOfStudents() {
-  // You write code here
+  return class07Students.length;
 }
+
+addStudentToClass('Tom');
+addStudentToClass('');
+addStudentToClass('Kate');
+addStudentToClass('Fred');
+addStudentToClass('Bill');
+addStudentToClass('Marie');
+addStudentToClass('Fiona');
+addStudentToClass('Margrethe II');
+addStudentToClass('Dan');
+addStudentToClass('Margrethe II');
+
+console.log(getNumberOfStudents(class07Students));
