@@ -7,9 +7,3 @@ function getEventWeekday(daysUntilEvent) {
   const eventDayIndex = (todayIndex + daysUntilEvent) % 7;
   return weekdays[eventDayIndex];
 }
-
-console.log(getEventWeekday(1));
-console.log(getEventWeekday(-1));
-console.log(getEventWeekday(10));
-console.log(getEventWeekday(4));
-console.log(getEventWeekday(0));
