@@ -41,3 +41,10 @@ function canBuyMoreCandy() {
   }
   return answer;
 }
+
+addCandy('sweet', 20);
+addCandy('chewing-gum', 20);
+addCandy('toffee', 20);
+
+canBuyMoreCandy();
+console.log(amountToSpend, boughtCandyPrices);
