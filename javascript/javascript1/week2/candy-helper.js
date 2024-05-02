@@ -34,11 +34,7 @@ function canBuyMoreCandy() {
     i++;
   }
   const answer = totalPrice < amountToSpend; //boolean
-  if (answer) {
-    console.log('You can buy more, so please do!');
-  } else {
-    console.log('Enough candy for you!');
-  }
+  console.log(answer ? 'You can buy more, so please do!' : 'Enough candy for you!');
   return answer;
 }
 
