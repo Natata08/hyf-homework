@@ -15,3 +15,10 @@ function getClothesRecommendation(temperature) {
     return 'a swimsuit and sunscreen';
   }
 }
+
+console.log(getClothesRecommendation(-18)); // "a down jacket and a knitted hat"
+console.log(getClothesRecommendation(-8)); // "a coat and warm trousers"
+console.log(getClothesRecommendation(5)); // "a jacket and a sweater"
+console.log(getClothesRecommendation(14)); // "a shirt and jeans"
+console.log(getClothesRecommendation(22)); //"a t-shirt and shorts"
+console.log(getClothesRecommendation(35)); // "a swimsuit and sunscreen"
