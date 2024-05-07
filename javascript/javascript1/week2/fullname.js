@@ -20,10 +20,10 @@ function getFullName(firstName, surname, useFormalName = false, isWoman = false)
   }
 }
 
-const fullName1 = getFullName('Mary', 'Jones', true, true); //"Lady Mary Jones"
-const fullName2 = getFullName('William', 'Smith'); //"William Smith"
-const fullName3 = getFullName('', 'Smith'); //Please fill in the missing information: First Name and Surname are required.
+const fullName1 = getFullName('Mary', 'Jones', true, true);
+const fullName2 = getFullName('William', 'Smith');
+const fullName3 = getFullName('', 'Smith');
 
-console.log(fullName1);
-console.log(fullName2);
-console.log(fullName3);
+console.log(fullName1); //"Lady Mary Jones"
+console.log(fullName2); //"William Smith"
+console.log(fullName3); //Please fill in the missing information: First Name and Surname are required.

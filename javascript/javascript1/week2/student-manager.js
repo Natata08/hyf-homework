@@ -30,4 +30,5 @@ addStudentToClass('Margrethe II');
 addStudentToClass('Dan');
 addStudentToClass('Margrethe II');
 
-console.log(getNumberOfStudents(class07Students));
+console.log(getNumberOfStudents(class07Students)); //7
+console.log(class07Students); //[ 'Tom', 'Kate', 'Fred', 'Bill', 'Marie', 'Fiona', 'Margrethe II' ]
