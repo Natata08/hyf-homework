@@ -1,19 +1,21 @@
 //Weather wear
+const clothes = [
+  'a down jacket and a knitted hat',
+  'a coat and warm trousers',
+  'a jacket and a sweater',
+  'a shirt and jeans',
+  'a t-shirt and shorts',
+  'a swimsuit and sunscreen',
+];
+const temperatures = [-10, 0, 10, 20, 30];
 
 function getClothesRecommendation(temperature) {
-  if (temperature <= -10) {
-    return 'a down jacket and a knitted hat';
-  } else if (temperature <= 0) {
-    return 'a coat and warm trousers';
-  } else if (temperature <= 10) {
-    return 'a jacket and a sweater';
-  } else if (temperature <= 20) {
-    return 'a shirt and jeans';
-  } else if (temperature <= 30) {
-    return 'a t-shirt and shorts';
-  } else {
-    return 'a swimsuit and sunscreen';
+  for (let i = 0; i < temperatures.length; i++) {
+    if (temperature <= temperatures[i]) {
+      return clothes[i];
+    }
   }
+  return clothes[clothes.length - 1];
 }
 
 console.log(getClothesRecommendation(-18)); // "a down jacket and a knitted hat"
