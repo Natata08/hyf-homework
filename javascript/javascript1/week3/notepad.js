@@ -31,3 +31,16 @@ const firstNote2 = getNote('2');
 console.log(firstNote2); // Error: The id is not specified or the id is not a number
 const firstNote3 = getNote(3);
 console.log(firstNote3); // A note with such an id does not exist
+
+//Log out notes
+function logOutNotesFormatted() {
+  let output = '';
+  for (const note of notes) {
+    output += `The note with id: ${note.id}, has the following note text: ${note.content}`;
+    if (notes.indexOf(note) !== notes.length - 1) output += '\n';
+  }
+  console.log(output);
+}
+logOutNotesFormatted();
+// The note with id: 1, has the following note text: Pick up groceries
+// The note with id: 2, has the following note text: Do laundry
