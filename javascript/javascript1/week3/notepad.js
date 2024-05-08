@@ -13,14 +13,16 @@ console.log(notes); //[{ content: 'Pick up groceries', id: 1 }, { content: 'Do l
 
 //get a note
 function getNote(id) {
-  if (!id || typeof id !== 'number') {
-    return 'Error: The id is not specified or the id is not a number';
+  if (id === undefined || typeof id !== 'number') {
+    console.log('Error: The id is not specified or the id is not a number');
+    return;
   }
   for (let i = 0; i < notes.length; i++) {
     const note = notes[i];
     if (note.id === id) return note;
   }
-  return 'A note with such an id does not exist';
+  console.log('Note not found for ID:', id);
+  return;
 }
 
 const firstNote = getNote(1);
@@ -30,7 +32,7 @@ console.log(firstNote1); // Error: The id is not specified or the id is not a nu
 const firstNote2 = getNote('2');
 console.log(firstNote2); // Error: The id is not specified or the id is not a number
 const firstNote3 = getNote(3);
-console.log(firstNote3); // A note with such an id does not exist
+console.log(firstNote3); // Note not found for ID: 3
 
 //Log out notes
 function logOutNotesFormatted() {
@@ -48,8 +50,9 @@ logOutNotesFormatted();
 // Unique features
 //Delete notes
 function deleteNote(id) {
-  if (!id || typeof id !== 'number') {
-    return 'Error: The id is not specified or the id is not a number';
+  if (id === undefined || typeof id !== 'number') {
+    console.log('Error: The id is not specified or the id is not a number');
+    return;
   }
   let deleteNoteIndex;
   for (let i = 0; i < notes.length; i++) {
@@ -57,6 +60,9 @@ function deleteNote(id) {
     if (note.id === id) {
       deleteNoteIndex = i;
       break;
+    } else {
+      console.log('Note not found for ID:', id);
+      return;
     }
   }
   notes.splice(deleteNoteIndex, 1);
@@ -65,3 +71,4 @@ function deleteNote(id) {
 saveNote('Do homework', 3);
 deleteNote(1);
 console.log(notes); //[ { content: 'Do laundry', id: 2 }, { content: 'Do homework', id: 3 } ]
+deleteNote(4); //Note not found for ID: 4
