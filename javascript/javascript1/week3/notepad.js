@@ -44,3 +44,21 @@ function logOutNotesFormatted() {
 logOutNotesFormatted();
 // The note with id: 1, has the following note text: Pick up groceries
 // The note with id: 2, has the following note text: Do laundry
+
+// Unique features
+//Delete notes
+function deleteNote(id) {
+  let indexDeletingNote;
+  for (let i = 0; i < notes.length; i++) {
+    const note = notes[i];
+    if (note.id === id) {
+      indexDeletingNote = i;
+      break;
+    }
+  }
+  notes.splice(indexDeletingNote, 1);
+}
+
+saveNote('Do homework', 3);
+deleteNote(1);
+console.log(notes); //[ { content: 'Do laundry', id: 2 }, { content: 'Do homework', id: 3 } ]
