@@ -48,15 +48,18 @@ logOutNotesFormatted();
 // Unique features
 //Delete notes
 function deleteNote(id) {
-  let indexDeletingNote;
+  if (!id || typeof id !== 'number') {
+    return 'Error: The id is not specified or the id is not a number';
+  }
+  let deleteNoteIndex;
   for (let i = 0; i < notes.length; i++) {
     const note = notes[i];
     if (note.id === id) {
-      indexDeletingNote = i;
+      deleteNoteIndex = i;
       break;
     }
   }
-  notes.splice(indexDeletingNote, 1);
+  notes.splice(deleteNoteIndex, 1);
 }
 
 saveNote('Do homework', 3);
