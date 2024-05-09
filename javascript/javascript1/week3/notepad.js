@@ -19,25 +19,24 @@ console.log(notes); //[{ content: 'Pick up groceries', id: 1 }, { content: 'Do l
 //get a note
 function getNote(id) {
   if (id === undefined || typeof id !== 'number') {
-    console.log('Error: The id is not specified or the id is not a number');
+    console.log('Error: The ID is not specified or the ID is not a number');
     return;
   }
   for (let i = 0; i < notes.length; i++) {
     const note = notes[i];
     if (note.id === id) return note;
   }
-  console.log('Note not found for ID:', id);
-  return;
+  console.log(`Note not found for ID ${id}`);
 }
 
-// const firstNote = getNote(1);
-// console.log(firstNote); // {content: 'Pick up groceries', id: 1}
-// const firstNote1 = getNote();
-// console.log(firstNote1); // Error: The id is not specified or the id is not a number
-// const firstNote2 = getNote('2');
-// console.log(firstNote2); // Error: The id is not specified or the id is not a number
-// const firstNote3 = getNote(3);
-// console.log(firstNote3); // Note not found for ID: 3
+const firstNote = getNote(1);
+console.log(firstNote); // {content: 'Pick up groceries', id: 1}
+const firstNote1 = getNote();
+console.log(firstNote1); // Error: The ID is not specified or the ID is not a number
+const firstNote2 = getNote('2');
+console.log(firstNote2); // Error: The ID is not specified or the ID is not a number
+const firstNote3 = getNote(3);
+console.log(firstNote3); // Note not found for ID 3
 
 //Log out notes
 function logOutNotesFormatted() {
