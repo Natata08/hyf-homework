@@ -67,7 +67,6 @@ function deleteNote(id) {
 }
 
 saveNote('Do homework', 3);
-console.log(notes);
 deleteNote(1);
 console.log(notes); //[ { content: 'Do laundry', id: 2 }, { content: 'Do homework', id: 3 } ]
 deleteNote(4); //No note found with ID 4
@@ -75,21 +74,16 @@ deleteNote(4); //No note found with ID 4
 //Edit notes
 function editNote(newContent, id) {
   if (id === undefined || typeof id !== 'number') {
-    console.log('Error: The id is not specified or the id is not a number');
+    console.log('Error: The ID is not specified or the ID is not a number');
     return;
   }
-  for (let i = 0; i < notes.length; i++) {
-    const note = notes[i];
-    if (note.id === id) {
-      console.log('!!!!');
-      note.content = newContent;
-      break;
-    } else {
-      console.log('Note not found for ID:', id);
-      return;
-    }
+  const index = notes.findIndex((note) => note.id === id);
+  if (index !== -1) {
+    notes[index].content = newContent;
+  } else {
+    console.log(`No note found with ID ${id}`);
   }
 }
 
-// editNote('Do homework', 3);
-// console.log(notes);
+editNote('Do my homework', 3);
+console.log(notes); //[{ content: 'Do laundry', id: 2 }, { content: 'Do my homework', id: 3 }]
