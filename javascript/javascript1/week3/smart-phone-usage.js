@@ -1,6 +1,10 @@
 // Adding an activity
-const activities = [];
-const usageLimitInMin = 100;
+const activities = [
+  { date: '04/09/24', activity: 'Youtube', duration: 40 },
+  { date: '04/09/24', activity: 'Angry Birds', duration: 30 },
+  { date: '03/09/24', activity: 'Twitter', duration: 150 },
+];
+const usageLimitInMin = 130;
 
 function getCurrentFormattedDate() {
   const options = {
@@ -19,7 +23,7 @@ function addActivity(activity, duration) {
 
 addActivity('Youtube', 30);
 addActivity('Twitter', 70);
-console.log(activities); //[{ date: '5/9/2024', activity: 'Youtube', duration: 30 }, { date: '5/9/2024', activity: 'Twitter', duration: 70 }]
+console.log(activities); //[{ date: '09/05/24', activity: 'Youtube', duration: 30 }, { date: '09/05/24', activity: 'Twitter', duration: 70 }]
 
 // Show my status
 function calculateTotalDuration(activities) {
@@ -31,22 +35,26 @@ function calculateTotalDuration(activities) {
   return totalDuration;
 }
 
-const isOverLimit = (limit, userDuration) => limit < userDuration;
+const isOverLimit = (limit, userDuration) => userDuration >= limit;
 
-function showStatus(activities) {
-  if (activities.length === 0) {
-    console.log('Add some activities before calling showStatus');
+function showStatus(activities, specifiedDate = getCurrentFormattedDate()) {
+  const specifiedDateActivities = activities.filter((activity) => activity.date === specifiedDate);
+
+  if (specifiedDateActivities.length === 0) {
+    console.log(`No activities found for ${specifiedDate}. Add some activities!`);
   } else {
-    const totalDuration = calculateTotalDuration(activities);
-    const activitiesAmount = activities.length;
+    const totalDuration = calculateTotalDuration(specifiedDateActivities);
+    const activitiesAmount = specifiedDateActivities.length;
     console.log(
       isOverLimit(usageLimitInMin, totalDuration)
-        ? 'You have reached your limit, no more smartphoning for you!'
-        : `You have added ${activitiesAmount} activities. They amount to ${totalDuration} min. of usage`
+        ? `You have reached your limit for ${specifiedDate}, no more smartphoning for you!`
+        : `You have added ${activitiesAmount} activities on ${specifiedDate}. They amount to ${totalDuration} min. of usage`
     );
   }
 }
 
-showStatus(activities); //You have added 2 activities. They amount to 100 min. of usage
+showStatus(activities); //You have added 2 activities on 09/05/24. They amount to 100 min. of usage
 addActivity('Instagram', 40);
-showStatus(activities); //You have reached your limit, no more smartphoning for you!
+showStatus(activities); //You have reached your limit for 09/05/24, no more smartphoning for you!
+showStatus(activities, '03/09/24'); //You have reached your limit for 03/09/24, no more smartphoning for you!
+showStatus(activities, '04/09/24'); //You have added 2 activities on 04/09/24. They amount to 70 min. of usage
