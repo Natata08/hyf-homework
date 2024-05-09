@@ -61,6 +61,11 @@ showStatus(activities, '04/09/24'); //You have added 2 activities on 04/09/24. T
 //
 
 function getMostTimeSpentActivity(activities) {
+  if (activities.length === 0) {
+    console.log(`No activities found`);
+    return;
+  }
+  //Summarize duration by activity
   const activitiesList = {};
   for (let i = 0; i < activities.length; i++) {
     const item = activities[i];
@@ -70,7 +75,18 @@ function getMostTimeSpentActivity(activities) {
       activitiesList[item.activity] = item.duration;
     }
   }
-  return activitiesList;
+  // Find activity with max duration
+  const activitiesNamesList = Object.keys(activitiesList);
+  let maxActivity = '';
+  let maxDuration = 0;
+  for (const activity of activitiesNamesList) {
+    if (activitiesList[activity] > maxDuration) {
+      maxActivity = activity;
+      maxDuration = activitiesList[activity];
+    }
+  }
+
+  return `You have spent the most time on ${maxActivity} - ${maxDuration} minutes`;
 }
 
-console.log(Object.entries(getMostTimeSpentActivity(activities)));
+console.log(getMostTimeSpentActivity(activities)); //You have spent the most time on Twitter - 220 minutes
