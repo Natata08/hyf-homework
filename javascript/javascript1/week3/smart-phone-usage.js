@@ -58,3 +58,19 @@ addActivity('Instagram', 40);
 showStatus(activities); //You have reached your limit for 09/05/24, no more smartphoning for you!
 showStatus(activities, '03/09/24'); //You have reached your limit for 03/09/24, no more smartphoning for you!
 showStatus(activities, '04/09/24'); //You have added 2 activities on 04/09/24. They amount to 70 min. of usage
+//
+
+function getMostTimeSpentActivity(activities) {
+  const activitiesList = {};
+  for (let i = 0; i < activities.length; i++) {
+    const item = activities[i];
+    if (activitiesList[item.activity]) {
+      activitiesList[item.activity] += item.duration;
+    } else {
+      activitiesList[item.activity] = item.duration;
+    }
+  }
+  return activitiesList;
+}
+
+console.log(Object.entries(getMostTimeSpentActivity(activities)));
