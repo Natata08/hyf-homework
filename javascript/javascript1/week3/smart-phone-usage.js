@@ -2,14 +2,15 @@
 const activities = [];
 const usageLimitInMin = 100;
 
-function addActivity(date, activity, duration) {
+function addActivity(activity, duration) {
+  const date = new Date().toLocaleDateString();
   const activityInfo = { date, activity, duration };
   activities.push(activityInfo);
 }
 
-addActivity('23/7-18', 'Youtube', 30);
-addActivity('23/7-18', 'Twitter', 70);
-console.log(activities); //[ { date: '23/7-18', activity: 'Youtube', duration: 30 } ]
+addActivity('Youtube', 30);
+addActivity('Twitter', 70);
+console.log(activities); //[{ date: '5/9/2024', activity: 'Youtube', duration: 30 }, { date: '5/9/2024', activity: 'Twitter', duration: 70 }]
 
 // Show my status
 function calculateTotalDuration(activities) {
@@ -38,5 +39,5 @@ function showStatus(activities) {
 }
 
 showStatus(activities); //You have added 2 activities. They amount to 100 min. of usage
-addActivity('23/7-18', 'Instagram', 40);
+addActivity('Instagram', 40);
 showStatus(activities); //You have reached your limit, no more smartphoning for you!
