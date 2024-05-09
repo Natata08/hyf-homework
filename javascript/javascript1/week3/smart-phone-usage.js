@@ -2,8 +2,17 @@
 const activities = [];
 const usageLimitInMin = 100;
 
+function getCurrentFormattedDate() {
+  const options = {
+    year: '2-digit', // reduce the year to the last two digits
+    month: '2-digit', // use two digits for the month
+    day: '2-digit', // use two digits for the day
+  };
+  return new Date().toLocaleDateString('en-GB', options);
+}
+
 function addActivity(activity, duration) {
-  const date = new Date().toLocaleDateString();
+  const date = getCurrentFormattedDate();
   const activityInfo = { date, activity, duration };
   activities.push(activityInfo);
 }
