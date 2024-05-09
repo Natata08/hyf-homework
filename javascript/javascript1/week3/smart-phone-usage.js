@@ -1,9 +1,9 @@
 // Adding an activity
 const activities = [
+  { date: '03/09/24', activity: 'Twitter', duration: 150 },
   { date: '04/09/24', activity: 'Youtube', duration: 40 },
   { date: '04/09/24', activity: 'Angry Birds', duration: 30 },
-  { date: '03/09/24', activity: 'Twitter', duration: 150 },
-];
+]; //added activity of other days for testing showStatus with specified date
 const usageLimitInMin = 130;
 
 function getCurrentFormattedDate() {
@@ -23,7 +23,15 @@ function addActivity(activity, duration) {
 
 addActivity('Youtube', 30);
 addActivity('Twitter', 70);
-console.log(activities); //[{ date: '09/05/24', activity: 'Youtube', duration: 30 }, { date: '09/05/24', activity: 'Twitter', duration: 70 }]
+console.log(activities);
+//Output:
+//[
+//   { date: '03/09/24', activity: 'Twitter', duration: 150 },
+//   { date: '04/09/24', activity: 'Youtube', duration: 40 },
+//   { date: '04/09/24', activity: 'Angry Birds', duration: 30 },
+//   { date: '09/05/24', activity: 'Youtube', duration: 30 },
+//   { date: '09/05/24', activity: 'Twitter', duration: 70 }
+// ]
 
 // Show my status
 function calculateTotalDuration(activities) {
@@ -58,8 +66,8 @@ addActivity('Instagram', 40);
 showStatus(activities); //You have reached your limit for 09/05/24, no more smartphoning for you!
 showStatus(activities, '03/09/24'); //You have reached your limit for 03/09/24, no more smartphoning for you!
 showStatus(activities, '04/09/24'); //You have added 2 activities on 04/09/24. They amount to 70 min. of usage
-//
 
+//Calculating the activity a user has spent the most time on
 function getMostTimeSpentActivity(activities) {
   if (activities.length === 0) {
     console.log(`No activities found`);
