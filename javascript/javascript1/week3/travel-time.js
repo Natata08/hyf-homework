@@ -23,7 +23,8 @@ function formatTimeInString(hours, minutes) {
 }
 
 function calculateTravelTime(travelInformation) {
-  const travelTime = travelInformation.destinationDistance / travelInformation.speed;
+  const travelTime =
+    travelInformation.destinationDistance / travelInformation.speed;
   const travelTimeHours = Math.floor(travelTime);
   const travelTimeMinutes = Math.round((travelTime - travelTimeHours) * 60);
   return formatTimeInString(travelTimeHours, travelTimeMinutes);

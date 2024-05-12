@@ -46,10 +46,14 @@ function calculateTotalDuration(activities) {
 const isOverLimit = (limit, userDuration) => userDuration >= limit;
 
 function showStatus(activities, specifiedDate = getCurrentFormattedDate()) {
-  const specifiedDateActivities = activities.filter((activity) => activity.date === specifiedDate);
+  const specifiedDateActivities = activities.filter(
+    (activity) => activity.date === specifiedDate
+  );
 
   if (specifiedDateActivities.length === 0) {
-    console.log(`No activities found for ${specifiedDate}. Add some activities!`);
+    console.log(
+      `No activities found for ${specifiedDate}. Add some activities!`
+    );
   } else {
     const totalDuration = calculateTotalDuration(specifiedDateActivities);
     const activitiesAmount = specifiedDateActivities.length;

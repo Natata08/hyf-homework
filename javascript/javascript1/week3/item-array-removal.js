@@ -1,4 +1,13 @@
-const names = ['Peter', 'Ahmad', 'Yana', 'kristina', 'Rasmus', 'Samuel', 'katrine', 'Tala'];
+const names = [
+  'Peter',
+  'Ahmad',
+  'Yana',
+  'kristina',
+  'Rasmus',
+  'Samuel',
+  'katrine',
+  'Tala',
+];
 const nameToRemove = 'Ahmad';
 
 const indexOfRemovingName = names.indexOf(nameToRemove);
