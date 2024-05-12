@@ -13,11 +13,12 @@ function saveNote(content, id) {
 
 saveNote('Pick up groceries', 1);
 saveNote('Do laundry', 2);
-saveNote('Do laundry', 2);
+saveNote('Do laundry', 2); //'A note with ID 2 already exists. Please use a unique ID'
 console.log(notes); //[{ content: 'Pick up groceries', id: 1 }, { content: 'Do laundry', id: 2 }]
 
 //get a note
 function getNote(id) {
+  // Check if the provided ID is undefined or not a number type and exit the function early if the ID is invalid
   if (id === undefined || typeof id !== 'number') {
     console.log('Error: The ID is not specified or the ID is not a number');
     return;
@@ -43,6 +44,7 @@ function logOutNotesFormatted() {
   let output = '';
   for (const note of notes) {
     output += `The note with id: ${note.id}, has the following note text: ${note.content}`;
+    // Check if current note is not the last one in the array and add a newline character
     if (notes.indexOf(note) !== notes.length - 1) output += '\n';
   }
   console.log(output);
@@ -54,6 +56,7 @@ logOutNotesFormatted();
 // Unique features
 //Delete notes
 function deleteNote(id) {
+  // Check if the provided ID is undefined or not a number type and exit the function early if the ID is invalid
   if (id === undefined || typeof id !== 'number') {
     console.log('Error: The ID is not specified or the ID is not a number');
     return;
@@ -73,6 +76,7 @@ deleteNote(4); //No note found with ID 4
 
 //Edit notes
 function editNote(newContent, id) {
+  // Check if the provided ID is undefined or not a number type and exit the function early if the ID is invalid
   if (id === undefined || typeof id !== 'number') {
     console.log('Error: The ID is not specified or the ID is not a number');
     return;
