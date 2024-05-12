@@ -59,12 +59,9 @@ function logOutSeriesText() {
   let output = '';
   for (let i = 0; i < percentageInformation.length; i++) {
     if (i === percentageInformation.length - 1) {
-      output +=
-        '\n' + `In total that is ${percentageInformation[i]}% of my life`;
+      output += `\nIn total that is ${percentageInformation[i]}% of my life`;
     } else {
-      output +=
-        `${percentageInformation[i][0]} took ${percentageInformation[i][1]}% of my life` +
-        '\n';
+      output += `${percentageInformation[i][0]} took ${percentageInformation[i][1]}% of my life\n`;
     }
   }
   console.log(output);
