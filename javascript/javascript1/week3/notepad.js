@@ -41,14 +41,15 @@ console.log(firstNote3); // Note not found for ID 3
 
 //Log out notes
 function logOutNotesFormatted() {
-  let output = '';
-  for (const note of notes) {
-    output += `The note with id: ${note.id}, has the following note text: ${note.content}`;
-    // Check if current note is not the last one in the array and add a newline character
-    if (notes.indexOf(note) !== notes.length - 1) output += '\n';
+  let output = [];
+  for (const { content, id } of notes) {
+    output.push(
+      `The note with id: ${id}, has the following note text: ${content}`
+    );
   }
-  console.log(output);
+  console.log(output.join('\n'));
 }
+
 logOutNotesFormatted();
 // The note with id: 1, has the following note text: Pick up groceries
 // The note with id: 2, has the following note text: Do laundry
