@@ -11,15 +11,13 @@ const travelInformation1 = {
 function formatTimeInString(hours, minutes) {
   const hourText = hours === 1 ? 'hour' : 'hours';
   const minuteText = minutes === 1 ? 'minute' : 'minutes';
-  let output = '';
-  if (hours !== 0 || minutes === 0) {
-    output += `${hours} ${hourText}`;
+  if (hours && minutes === 0) {
+    return `${hours} ${hourText}`;
+  } else if (hours && minutes > 0) {
+    return `${hours} ${hourText} and ${minutes} ${minuteText}`;
+  } else {
+    return `${minutes} ${minuteText}`;
   }
-  if (minutes > 0) {
-    if (hours > 0) output += ' and ';
-    output += `${minutes} ${minuteText}`;
-  }
-  return output;
 }
 
 function calculateTravelTime(travelInformation) {
