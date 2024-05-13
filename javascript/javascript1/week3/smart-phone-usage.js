@@ -6,7 +6,7 @@ const activities = [
 ]; //added activity of other days for testing showStatus with specified date
 const usageLimitInMin = 130;
 
-function getCurrentFormattedDate() {
+function getCurrentDateFormatted() {
   const options = {
     year: '2-digit', // reduce the year to the last two digits
     month: '2-digit', // use two digits for the month
@@ -16,7 +16,7 @@ function getCurrentFormattedDate() {
 }
 
 function addActivity(activity, duration) {
-  const date = getCurrentFormattedDate();
+  const date = getCurrentDateFormatted();
   const activityInfo = { date, activity, duration };
   activities.push(activityInfo);
 }
@@ -37,15 +37,15 @@ console.log(activities);
 function calculateTotalDuration(activities) {
   let totalDuration = 0;
   for (let i = 0; i < activities.length; i++) {
-    const activity = activities[i];
-    totalDuration += activity.duration;
+    const { duration } = activities[i];
+    totalDuration += duration;
   }
   return totalDuration;
 }
 
 const isOverLimit = (limit, userDuration) => userDuration >= limit;
 
-function showStatus(activities, specifiedDate = getCurrentFormattedDate()) {
+function showStatus(activities, specifiedDate = getCurrentDateFormatted()) {
   const specifiedDateActivities = activities.filter(
     (activity) => activity.date === specifiedDate
   );
@@ -80,11 +80,11 @@ function getMostTimeSpentActivity(activities) {
   //Summarize duration by activity
   const activitiesList = {};
   for (let i = 0; i < activities.length; i++) {
-    const item = activities[i];
-    if (activitiesList[item.activity]) {
-      activitiesList[item.activity] += item.duration;
+    const { activity, duration } = activities[i];
+    if (activitiesList[activity]) {
+      activitiesList[activity] += duration; //already exist
     } else {
-      activitiesList[item.activity] = item.duration;
+      activitiesList[activity] = duration; //new one
     }
   }
   // Find activity with max duration
