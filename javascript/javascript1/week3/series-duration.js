@@ -41,12 +41,11 @@ function calculateSeriesPercentage(seriesInformation) {
   let totalDurationInMin = 0;
   const percentages = [];
   for (let i = 0; i < seriesInformation.length; i++) {
-    const series = seriesInformation[i];
-    const durationInMin =
-      series.days * 24 * 60 + series.hours * 60 + series.minutes;
+    const { title, days, hours, minutes } = seriesInformation[i]; //destructuring assignment
+    const durationInMin = days * 24 * 60 + hours * 60 + minutes;
     totalDurationInMin += durationInMin;
     const percentagePerSeries = calculatePercentageOfLifespan(durationInMin);
-    percentages.push([series.title, percentagePerSeries]);
+    percentages.push([title, percentagePerSeries]);
   }
   const totalPercentage = calculatePercentageOfLifespan(totalDurationInMin);
   percentages.push(totalPercentage);
