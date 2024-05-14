@@ -5,6 +5,10 @@ function addUser(name) {
   console.log(user);
 }
 
+function checkUserExistence(name) {
+  return user.name === name;
+}
+
 function extractName(phrase) {
   const words = phrase.split(' ');
   const name = words[words.length - 1];
@@ -19,8 +23,12 @@ function getReply(command) {
   switch (command) {
     case 'Hello my name is Benjamin':
       const name = extractName(command);
-      addUser(name);
-      greeting(name);
+      if (!checkUserExistence(name)) {
+        addUser(name);
+        greeting(name);
+      } else {
+        console.log(`I already know you, ${name}!`);
+      }
       break;
     case '':
       break;
@@ -32,3 +40,4 @@ function getReply(command) {
 }
 
 getReply('Hello my name is Benjamin'); //Nice to meet you Benjamin
+getReply('Hello my name is Benjamin');
