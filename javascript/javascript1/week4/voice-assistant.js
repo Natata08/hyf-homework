@@ -2,42 +2,50 @@ const user = {};
 
 function addUser(name) {
   user.name = name;
-  console.log(user);
 }
 
-function checkUserExistence(name) {
-  return user.name === name;
-}
+const checkUserExistence = (name) => user.name === name;
 
-function extractName(phrase) {
-  const words = phrase.split(' ');
-  const name = words[words.length - 1];
-  return name;
-}
+const getName = (phrase) => {
+  const userName = phrase.split('hello my name is ')[1]; //['', 'name']
+  return capitalizeFirstLetter(userName);
+};
 
-function greeting(name) {
-  console.log(`Nice to meet you ${name}`);
-}
+const capitalizeFirstLetter = (string) =>
+  `${string.charAt(0).toUpperCase()}${string.slice(1)}`; //benjamin -> Benjamin
+
+const isSayHello = (command) => command.includes('hello my name is');
+const askName = (command) => command.includes('what is my name');
 
 function getReply(command) {
-  switch (command) {
-    case 'Hello my name is Benjamin':
-      const name = extractName(command);
-      if (!checkUserExistence(name)) {
-        addUser(name);
-        greeting(name);
+  const normalizedCommand = command.toLowerCase().trim();
+  let response = '';
+  switch (true) {
+    case isSayHello(normalizedCommand):
+      const userName = getName(normalizedCommand);
+      if (!checkUserExistence(userName)) {
+        addUser(userName);
+        response = `Nice to meet you ${user.name}`;
       } else {
-        console.log(`I already know you, ${name}!`);
+        response = `I already know you, ${user.name}`;
       }
       break;
-    case '':
+    case askName(normalizedCommand):
+      if (!user.name) {
+        response = `It seems you haven’t introduced yourself yet! What's your name?`;
+      } else {
+        response = `You name is ${user.name}`;
+      }
       break;
-    case '':
-      break;
-    default:
-      console.log(`...`);
-  }
-}
 
-getReply('Hello my name is Benjamin'); //Nice to meet you Benjamin
-getReply('Hello my name is Benjamin');
+    default:
+      break;
+  }
+  return response;
+}
+console.log(getReply('What is my name')); //It seems you haven’t introduced yourself yet! What's your name?
+console.log(getReply('Hello my name is Benjamin')); //Nice to meet you Benjamin
+console.log(getReply('Hello my name is Benjamin')); //I already know you, Benjamin
+console.log(getReply('What is my name')); //Your name is Benjamin
+
+console.log(user);
