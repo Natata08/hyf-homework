@@ -9,7 +9,7 @@ function addActivity(activity) {
     return 'You already have this activity in to-do';
   } else {
     user.todo.push(activity);
-    return; //undefined
+    return `${activity} added to your to-do`;
   }
 }
 
@@ -17,9 +17,18 @@ function removeActivity(activity) {
   const indexOfRemovingActivity = user.todo.indexOf(activity);
   if (indexOfRemovingActivity >= 0) {
     user.todo.splice(indexOfRemovingActivity, 1);
-    return; //undefined
+    return `Removed ${activity} from your to-do`;
   } else {
     return 'There is no such activity in your to-do';
+  }
+}
+
+function listTodos() {
+  if (user.todo.length === 0) {
+    return 'Your todo is empty';
+  } else {
+    const todoItems = user.todo.join(' and ');
+    return `You have ${user.todo.length} todos:\n${todoItems}`;
   }
 }
 
@@ -48,6 +57,7 @@ const addTodo = (command) =>
   command.startsWith('add') && command.endsWith('to my to-do');
 const removeTodo = (command) =>
   command.startsWith('remove') && command.endsWith('from my to-do');
+const askListTodos = (command) => command.includes('what is on my todo');
 
 function getReply(command) {
   const normalizedCommand = command.toLowerCase().trim();
@@ -76,16 +86,18 @@ function getReply(command) {
     //adding an activity to a list of todo
     case addTodo(normalizedCommand):
       const newActivity = extractActivity(normalizedCommand, true);
-      response =
-        addActivity(newActivity) || `${newActivity} added to your to-do`; //if there is already this activity, func returns a message, if not - undefined
+      response = addActivity(newActivity);
       break;
 
     //removing an activity from a list of todo
     case removeTodo(normalizedCommand):
       const deletingActivity = extractActivity(normalizedCommand, false);
-      response =
-        removeActivity(deletingActivity) ||
-        `Removed ${deletingActivity} from your to-do`; //if there is no such activity, func returns a message, if there is - undefined
+      response = removeActivity(deletingActivity);
+      break;
+
+    //listing activities from todo
+    case askListTodos(normalizedCommand):
+      response = listTodos();
       break;
 
     default:
@@ -103,4 +115,9 @@ console.log(getReply('Add fishing to my to-do')); //You already have this activi
 console.log(getReply('Add singing in the shower to my to-do')); //singing in the shower added to your to-do
 console.log(getReply('Remove fishing from my to-do')); //Removed fishing from your to-do
 console.log(getReply('Remove shopping from my to-do')); //There is no such activity in your to-do
+console.log(getReply('Add shopping to my to-do')); //shopping added to your to-do
+console.log(listTodos());
+// You have 2 todos:
+// singing in the shower and shopping
+
 console.log(user);
