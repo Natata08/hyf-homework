@@ -5,15 +5,21 @@ function addUser(name) {
 }
 
 function addActivity(activity) {
-  user.todo.push(activity);
+  if (user.todo.includes(activity)) {
+    return 'You already have this activity in to-do';
+  } else {
+    user.todo.push(activity);
+    return; //undefined
+  }
 }
 
 function removeActivity(activity) {
   const indexOfRemovingActivity = user.todo.indexOf(activity);
   if (indexOfRemovingActivity >= 0) {
     user.todo.splice(indexOfRemovingActivity, 1);
+    return; //undefined
   } else {
-    return 'There is no such activity';
+    return 'There is no such activity in your to-do';
   }
 }
 
@@ -47,6 +53,7 @@ function getReply(command) {
   const normalizedCommand = command.toLowerCase().trim();
   let response = '';
   switch (true) {
+    //greeting and introducing
     case isSayHello(normalizedCommand):
       const userName = getName(normalizedCommand);
       if (!checkUserExistence(userName)) {
@@ -57,6 +64,7 @@ function getReply(command) {
       }
       break;
 
+    //asking a name
     case askName(normalizedCommand):
       if (!user.name) {
         response = `It seems you haven’t introduced yourself yet! What's your name?`;
@@ -65,16 +73,19 @@ function getReply(command) {
       }
       break;
 
+    //adding an activity to a list of todo
     case addTodo(normalizedCommand):
       const newActivity = extractActivity(normalizedCommand, true);
-      addActivity(newActivity);
-      response = `${newActivity} added to your to-do`;
+      response =
+        addActivity(newActivity) || `${newActivity} added to your to-do`; //if there is already this activity, func returns a message, if not - undefined
       break;
 
+    //removing an activity from a list of todo
     case removeTodo(normalizedCommand):
       const deletingActivity = extractActivity(normalizedCommand, false);
-      removeActivity(deletingActivity);
-      response = `Removed ${deletingActivity} from your to-do`;
+      response =
+        removeActivity(deletingActivity) ||
+        `Removed ${deletingActivity} from your to-do`; //if there is no such activity, func returns a message, if there is - undefined
       break;
 
     default:
@@ -88,6 +99,8 @@ console.log(getReply('Hello my name is Benjamin')); //Nice to meet you Benjamin
 console.log(getReply('Hello my name is Benjamin')); //I already know you, Benjamin
 console.log(getReply('What is my name')); //Your name is Benjamin
 console.log(getReply('Add fishing to my to-do')); //fishing added to your to-do
+console.log(getReply('Add fishing to my to-do')); //You already have this activity in to-do
 console.log(getReply('Add singing in the shower to my to-do')); //singing in the shower added to your to-do
 console.log(getReply('Remove fishing from my to-do')); //Removed fishing from your to-do
+console.log(getReply('Remove shopping from my to-do')); //There is no such activity in your to-do
 console.log(user);
