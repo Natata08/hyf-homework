@@ -32,6 +32,18 @@ function listTodos() {
   }
 }
 
+function getCurrentDate() {
+  const today = new Date();
+  const options = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  };
+  const formattedDate = today.toLocaleDateString('en-GB', options); //15 May 2024
+  const [day, month, year] = formattedDate.split(' ');
+  return `${day}. of ${month} ${year}`;
+}
+
 const checkUserExistence = (name) => user.name === name;
 
 const getName = (sentence) => {
@@ -58,6 +70,7 @@ const addTodo = (command) =>
 const removeTodo = (command) =>
   command.startsWith('remove') && command.endsWith('from my to-do');
 const askListTodos = (command) => command.includes('what is on my todo');
+const askCurrentDate = (command) => command.includes('what day is it today');
 
 function getReply(command) {
   const normalizedCommand = command.toLowerCase().trim();
@@ -100,6 +113,11 @@ function getReply(command) {
       response = listTodos();
       break;
 
+    //asking a date
+    case askCurrentDate(normalizedCommand):
+      response = getCurrentDate();
+      break;
+
     default:
       response = `I didn't understand that command. Repeat, please`;
       break;
@@ -119,5 +137,5 @@ console.log(getReply('Add shopping to my to-do')); //shopping added to your to-d
 console.log(listTodos());
 // You have 2 todos:
 // singing in the shower and shopping
-
+console.log(getReply('What day is it today')); //15. of May 2024
 console.log(user);
