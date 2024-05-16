@@ -41,8 +41,10 @@ function getCurrentDate() {
   };
   const formattedDate = today.toLocaleDateString('en-GB', options); //15 May 2024
   const [day, month, year] = formattedDate.split(' ');
-  return `${day}. of ${month} ${year}`;
+  return `Today is ${day}. of ${month} ${year}`;
 }
+
+const calcMathExpression = (mathExpression) => eval(mathExpression).toString();
 
 const checkUserExistence = (name) => user.name === name;
 
@@ -63,14 +65,27 @@ function extractActivity(sentence, isAdding = true) {
   return match[1];
 }
 
+const getMathExpression = (sentence) => sentence.split('what is ')[1]; //['', '3 + 3']
+
+//functions for recognizing a command
 const isSayHello = (command) => command.includes('hello my name is');
 const askName = (command) => command.includes('what is my name');
 const addTodo = (command) =>
   command.startsWith('add') && command.endsWith('to my to-do');
 const removeTodo = (command) =>
   command.startsWith('remove') && command.endsWith('from my to-do');
-const askListTodos = (command) => command.includes('what is on my todo');
+const askListTodos = (command) => command.includes('what is on my to-do');
 const askCurrentDate = (command) => command.includes('what day is it today');
+const askDoingMath = (command) =>
+  command.startsWith('what is') &&
+  (command.includes('+') ||
+    command.includes('plus') ||
+    command.includes('-') ||
+    command.includes('minus') ||
+    command.includes('*') ||
+    command.includes('times') || // Assuming "times" is used for multiplication
+    command.includes('/') ||
+    command.includes('divided by')); // Assuming "divided by" is used for division
 
 function getReply(command) {
   const normalizedCommand = command.toLowerCase().trim();
@@ -90,7 +105,7 @@ function getReply(command) {
     //asking a name
     case askName(normalizedCommand):
       if (!user.name) {
-        response = `It seems you haven’t introduced yourself yet! What's your name?`;
+        response = `It seems you haven't introduced yourself yet! What's your name?`;
       } else {
         response = `You name is ${user.name}`;
       }
@@ -118,13 +133,20 @@ function getReply(command) {
       response = getCurrentDate();
       break;
 
+    //doing simple math
+    case askDoingMath(normalizedCommand):
+      const mathExpression = getMathExpression(normalizedCommand);
+      response = calcMathExpression(mathExpression);
+      break;
+
     default:
       response = `I didn't understand that command. Repeat, please`;
       break;
   }
   return response;
 }
-console.log(getReply('What is my name')); //It seems you haven’t introduced yourself yet! What's your name?
+
+console.log(getReply('What is my name')); //It seems you haven't introduced yourself yet! What's your name?
 console.log(getReply('Hello my name is Benjamin')); //Nice to meet you Benjamin
 console.log(getReply('Hello my name is Benjamin')); //I already know you, Benjamin
 console.log(getReply('What is my name')); //Your name is Benjamin
@@ -134,8 +156,12 @@ console.log(getReply('Add singing in the shower to my to-do')); //singing in the
 console.log(getReply('Remove fishing from my to-do')); //Removed fishing from your to-do
 console.log(getReply('Remove shopping from my to-do')); //There is no such activity in your to-do
 console.log(getReply('Add shopping to my to-do')); //shopping added to your to-do
-console.log(listTodos());
+console.log(listTodos('What is on my to-do'));
 // You have 2 todos:
 // singing in the shower and shopping
-console.log(getReply('What day is it today')); //15. of May 2024
+console.log(getReply('What day is it today')); //Today is 16. of May 2024
+console.log(getReply('What is 3 + 3')); //6
+console.log(getReply('What is 4 * 10')); //40
+console.log(getReply('What is 15 - 5')); //10
+console.log(getReply('What is 50 / 25')); //2
 console.log(user);
