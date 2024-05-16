@@ -1,4 +1,4 @@
-const user = { name: null, todo: [] };
+const user = { name: null, todo: [], activeTimerId: null };
 
 function addUser(name) {
   user.name = name;
@@ -48,8 +48,45 @@ function calcMathExpression(mathExpression) {
   if (isValidMathExpression(mathExpression)) {
     return eval(mathExpression).toString();
   } else {
-    return 'I am afraid I did not catch the numbers. Could you please repeat';
+    return 'I am afraid I did not catch the numbers. Could you repeat please ';
   }
+}
+// const callback = () => {
+//   // console.log('Timer done');
+//   // return 'Timer done';
+// };
+function setTimer(timeInfo, command) {
+  const [timeValue, timeUnit] = timeInfo;
+  let timeInMilliseconds;
+  switch (timeUnit) {
+    case 'seconds':
+    case 'second':
+      timeInMilliseconds = timeValue * 1000;
+      break;
+    case 'minutes':
+    case 'minute':
+      timeInMilliseconds = timeValue * 60 * 1000;
+      break;
+    case 'hours':
+    case 'hour':
+      timeInMilliseconds = timeValue * 60 * 60 * 1000;
+      break;
+    default:
+      return 'Oh, I did not catch the time. Please use seconds, minutes, or hours.'; // Return for invalid time units
+  }
+
+  // Clear existing timer
+  if (user.activeTimerId !== null) {
+    clearTimeout(user.activeTimerId);
+  }
+  // Set the new timer
+  user.activeTimerId = setTimeout(() => {
+    getReply(command);
+    clearTimeout(user.activeTimerId);
+    // console.log('ssssss');
+  }, timeInMilliseconds);
+
+  return `Timer set for ${timeValue} ${timeUnit}`;
 }
 
 function isValidMathExpression(expression) {
@@ -95,6 +132,13 @@ function getMathExpression(sentence) {
   return mathExpressionNormalized;
 }
 
+function getTimeInfo(sentence) {
+  const valueAndUnit = sentence.split('set a timer for ')[1].split(' '); //['4', 'minutes']
+  const timeValue = parseInt(valueAndUnit[0], 10); // Provides numeric conversion
+  const timeUnit = valueAndUnit[1];
+  return [timeValue, timeUnit]; //[4, 'minutes']
+}
+
 //functions for recognizing a command
 const isSayHello = (command) => command.includes('hello my name is');
 const askName = (command) => command.includes('what is my name');
@@ -114,6 +158,7 @@ const askDoingMath = (command) =>
     command.includes('times') || // Assuming "times" is used for multiplication
     command.includes('/') ||
     command.includes('divided by')); // Assuming "divided by" is used for division
+const askSetTimer = (command) => command.includes('set a timer for');
 
 function getReply(command) {
   const normalizedCommand = command.toLowerCase().trim();
@@ -167,6 +212,17 @@ function getReply(command) {
       response = calcMathExpression(mathExpression);
       break;
 
+    //setting a timer
+    case askSetTimer(normalizedCommand):
+      const timeInfo = getTimeInfo(normalizedCommand);
+      response = setTimer(timeInfo, 'timer done');
+      break;
+
+    case normalizedCommand === 'timer done':
+      response = 'Timer done';
+      // console.log(response);
+      break;
+
     default:
       response = `I didn't understand that command. Repeat, please`;
       break;
@@ -188,6 +244,7 @@ console.log(listTodos('What is on my to-do'));
 // You have 2 todos:
 // singing in the shower and shopping
 console.log(getReply('What day is it today')); //Today is 16. of May 2024
+//math
 console.log(getReply('What is 3 + 3')); //6
 console.log(getReply('What is 3 plus 3')); //6
 console.log(getReply('What is 4 * 10')); //40
@@ -197,4 +254,7 @@ console.log(getReply('What is 15 minus 5')); //10
 console.log(getReply('What is 50 / 25')); //2
 console.log(getReply('What is 50 divided by 25')); //2
 console.log(getReply('What is 52 divided by free')); //I am afraid I did not catch the numbers. Could you please repeat
+//timer
+console.log(getReply('Set a timer for 5 seconds'));
+console.log(user);
 console.log(user);
