@@ -44,7 +44,23 @@ function getCurrentDate() {
   return `Today is ${day}. of ${month} ${year}`;
 }
 
-const calcMathExpression = (mathExpression) => eval(mathExpression).toString();
+function calcMathExpression(mathExpression) {
+  if (isValidMathExpression(mathExpression)) {
+    return eval(mathExpression).toString();
+  } else {
+    return 'I am afraid I did not catch the numbers. Could you please repeat';
+  }
+}
+
+function isValidMathExpression(expression) {
+  const validCharacters = '0123456789+-*/ ';
+  for (let char of expression) {
+    if (!validCharacters.includes(char)) {
+      return false;
+    }
+  }
+  return true;
+}
 
 const checkUserExistence = (name) => user.name === name;
 
@@ -65,7 +81,19 @@ function extractActivity(sentence, isAdding = true) {
   return match[1];
 }
 
-const getMathExpression = (sentence) => sentence.split('what is ')[1]; //['', '3 + 3']
+function getMathExpression(sentence) {
+  const mathExpression = sentence.split('what is ')[1]; //['', '3 + 3']
+  const mathExpressionNormalized = mathExpression.includes('plus')
+    ? mathExpression.replace('plus', '+')
+    : mathExpression.includes('minus')
+    ? mathExpression.replace('minus', '-')
+    : mathExpression.includes('times')
+    ? mathExpression.replace('times', '*')
+    : mathExpression.includes('divided by')
+    ? mathExpression.replace('divided by', '/')
+    : mathExpression;
+  return mathExpressionNormalized;
+}
 
 //functions for recognizing a command
 const isSayHello = (command) => command.includes('hello my name is');
@@ -161,7 +189,12 @@ console.log(listTodos('What is on my to-do'));
 // singing in the shower and shopping
 console.log(getReply('What day is it today')); //Today is 16. of May 2024
 console.log(getReply('What is 3 + 3')); //6
+console.log(getReply('What is 3 plus 3')); //6
 console.log(getReply('What is 4 * 10')); //40
+console.log(getReply('What is 4 times 10')); //40
 console.log(getReply('What is 15 - 5')); //10
+console.log(getReply('What is 15 minus 5')); //10
 console.log(getReply('What is 50 / 25')); //2
+console.log(getReply('What is 50 divided by 25')); //2
+console.log(getReply('What is 52 divided by free')); //I am afraid I did not catch the numbers. Could you please repeat
 console.log(user);
