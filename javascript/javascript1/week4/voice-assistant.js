@@ -1,7 +1,70 @@
+//Data
 const user = { name: null, todo: [], activeTimerId: null };
 
+//helper functions
+function isValidMathExpression(expression) {
+  const validCharacters = '0123456789+-*/ ';
+  for (let char of expression) {
+    if (!validCharacters.includes(char)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+const capitalizeFirstLetter = (string) =>
+  `${string.charAt(0).toUpperCase()}${string.slice(1)}`; //benjamin -> Benjamin
+
+//functions that extract data
+const getName = (sentence) => {
+  const userName = sentence.split('hello my name is ')[1]; //['', 'name']
+  return capitalizeFirstLetter(userName);
+};
+
+function getActivity(sentence, isAdding = true) {
+  //extracting a word/phrase from command that follow this specific pattern
+  const matchPattern = isAdding
+    ? /add (.*?) to my to-do/
+    : /remove (.*?) from my to-do/;
+  const match = sentence.match(matchPattern);
+  return match[1];
+}
+
+function getMathExpression(sentence) {
+  const mathExpression = sentence.split('what is ')[1]; //['', '3 + 3']
+  const mathExpressionNormalized = mathExpression.includes('plus')
+    ? mathExpression.replace('plus', '+')
+    : mathExpression.includes('minus')
+    ? mathExpression.replace('minus', '-')
+    : mathExpression.includes('times')
+    ? mathExpression.replace('times', '*')
+    : mathExpression.includes('divided by')
+    ? mathExpression.replace('divided by', '/')
+    : mathExpression;
+  return mathExpressionNormalized;
+}
+
+function getTimeInfo(sentence) {
+  const valueAndUnit = sentence.split('set a timer for ')[1].split(' '); //['4', 'minutes']
+  const timeValue = parseInt(valueAndUnit[0], 10); // Provides numeric conversion
+  const timeUnit = valueAndUnit[1];
+  return [timeValue, timeUnit]; //[4, 'minutes']
+}
+
+//functions that return response
 function addUser(name) {
-  user.name = name;
+  if (user.name !== name) {
+    user.name = name;
+    return `Nice to meet you ${user.name}`;
+  }
+  return `I already know you, ${user.name}`;
+}
+
+function sayName() {
+  if (!user.name) {
+    return `It seems you haven't introduced yourself yet! What's your name?`;
+  }
+  return `You name is ${user.name}`;
 }
 
 function addActivity(activity) {
@@ -51,11 +114,9 @@ function calcMathExpression(mathExpression) {
     return 'I am afraid I did not catch the numbers. Could you repeat please ';
   }
 }
-// const callback = () => {
-//   // console.log('Timer done');
-//   // return 'Timer done';
-// };
+
 function setTimer(timeInfo, command) {
+  //calculating milliseconds for a timer
   const [timeValue, timeUnit] = timeInfo;
   let timeInMilliseconds;
   switch (timeUnit) {
@@ -81,62 +142,14 @@ function setTimer(timeInfo, command) {
   }
   // Set the new timer
   user.activeTimerId = setTimeout(() => {
-    getReply(command);
+    console.log(getReply(command)); //for seeing the message in consol
+    //code for working artyom.js
+    // const response = getReply(command);
+    // artyom.say(response);
     clearTimeout(user.activeTimerId);
-    // console.log('ssssss');
   }, timeInMilliseconds);
 
   return `Timer set for ${timeValue} ${timeUnit}`;
-}
-
-function isValidMathExpression(expression) {
-  const validCharacters = '0123456789+-*/ ';
-  for (let char of expression) {
-    if (!validCharacters.includes(char)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-const checkUserExistence = (name) => user.name === name;
-
-const getName = (sentence) => {
-  const userName = sentence.split('hello my name is ')[1]; //['', 'name']
-  return capitalizeFirstLetter(userName);
-};
-
-const capitalizeFirstLetter = (string) =>
-  `${string.charAt(0).toUpperCase()}${string.slice(1)}`; //benjamin -> Benjamin
-
-function extractActivity(sentence, isAdding = true) {
-  //extracting a word/phrase from command that follow this specific pattern
-  const matchPattern = isAdding
-    ? /add (.*?) to my to-do/
-    : /remove (.*?) from my to-do/;
-  const match = sentence.match(matchPattern);
-  return match[1];
-}
-
-function getMathExpression(sentence) {
-  const mathExpression = sentence.split('what is ')[1]; //['', '3 + 3']
-  const mathExpressionNormalized = mathExpression.includes('plus')
-    ? mathExpression.replace('plus', '+')
-    : mathExpression.includes('minus')
-    ? mathExpression.replace('minus', '-')
-    : mathExpression.includes('times')
-    ? mathExpression.replace('times', '*')
-    : mathExpression.includes('divided by')
-    ? mathExpression.replace('divided by', '/')
-    : mathExpression;
-  return mathExpressionNormalized;
-}
-
-function getTimeInfo(sentence) {
-  const valueAndUnit = sentence.split('set a timer for ')[1].split(' '); //['4', 'minutes']
-  const timeValue = parseInt(valueAndUnit[0], 10); // Provides numeric conversion
-  const timeUnit = valueAndUnit[1];
-  return [timeValue, timeUnit]; //[4, 'minutes']
 }
 
 //functions for recognizing a command
@@ -160,76 +173,56 @@ const askDoingMath = (command) =>
     command.includes('divided by')); // Assuming "divided by" is used for division
 const askSetTimer = (command) => command.includes('set a timer for');
 
+//main function
 function getReply(command) {
   const normalizedCommand = command.toLowerCase().trim();
-  let response = '';
   switch (true) {
     //greeting and introducing
     case isSayHello(normalizedCommand):
       const userName = getName(normalizedCommand);
-      if (!checkUserExistence(userName)) {
-        addUser(userName);
-        response = `Nice to meet you ${user.name}`;
-      } else {
-        response = `I already know you, ${user.name}`;
-      }
-      break;
+      return addUser(userName);
 
     //asking a name
     case askName(normalizedCommand):
-      if (!user.name) {
-        response = `It seems you haven't introduced yourself yet! What's your name?`;
-      } else {
-        response = `You name is ${user.name}`;
-      }
-      break;
+      return sayName();
 
     //adding an activity to a list of todo
     case addTodo(normalizedCommand):
-      const newActivity = extractActivity(normalizedCommand, true);
-      response = addActivity(newActivity);
-      break;
+      const newActivity = getActivity(normalizedCommand, true);
+      return addActivity(newActivity);
 
     //removing an activity from a list of todo
     case removeTodo(normalizedCommand):
-      const deletingActivity = extractActivity(normalizedCommand, false);
-      response = removeActivity(deletingActivity);
-      break;
+      const deletingActivity = getActivity(normalizedCommand, false);
+      return removeActivity(deletingActivity);
 
     //listing activities from todo
     case askListTodos(normalizedCommand):
-      response = listTodos();
-      break;
+      return listTodos();
 
     //asking a date
     case askCurrentDate(normalizedCommand):
-      response = getCurrentDate();
-      break;
+      return getCurrentDate();
 
     //doing simple math
     case askDoingMath(normalizedCommand):
       const mathExpression = getMathExpression(normalizedCommand);
-      response = calcMathExpression(mathExpression);
-      break;
+      return calcMathExpression(mathExpression);
 
     //setting a timer
     case askSetTimer(normalizedCommand):
       const timeInfo = getTimeInfo(normalizedCommand);
-      response = setTimer(timeInfo, 'timer done');
-      break;
+      return setTimer(timeInfo, 'timer done');
 
     case normalizedCommand === 'timer done':
-      response = 'Timer done';
-      // console.log(response);
-      break;
+      return 'Timer done';
 
     default:
-      response = `I didn't understand that command. Repeat, please`;
-      break;
+      return `I didn't understand that command. Repeat, please`;
   }
-  return response;
 }
 
+//Testing
 console.log(getReply('What is my name')); //It seems you haven't introduced yourself yet! What's your name?
 console.log(getReply('Hello my name is Benjamin')); //Nice to meet you Benjamin
 console.log(getReply('Hello my name is Benjamin')); //I already know you, Benjamin
@@ -255,6 +248,6 @@ console.log(getReply('What is 50 / 25')); //2
 console.log(getReply('What is 50 divided by 25')); //2
 console.log(getReply('What is 52 divided by free')); //I am afraid I did not catch the numbers. Could you please repeat
 //timer
-console.log(getReply('Set a timer for 5 seconds'));
-console.log(user);
-console.log(user);
+console.log(getReply('Set a timer for 5 seconds')); //Timer set for 5 seconds
+// 5 seconds later:
+// Timer done
