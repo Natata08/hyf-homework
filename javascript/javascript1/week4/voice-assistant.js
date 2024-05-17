@@ -152,6 +152,20 @@ function setTimer(timeInfo, command) {
   return `Timer set for ${timeValue} ${timeUnit}`;
 }
 
+function getNiceMessage() {
+  const nicePhrases = [
+    'You are an incredible person',
+    'You are a wonderful friend',
+    'Your positivity is infectious',
+    'You have a great sense of humor',
+    'You are a great coder',
+    'Regular expressions are a piece of cake for you',
+    'You will soon be working as a web developer',
+  ];
+  const randomIndex = Math.floor(Math.random() * nicePhrases.length);
+  return `${nicePhrases[randomIndex]}, ${user.name}`;
+}
+
 //functions for recognizing a command
 const isSayHello = (command) => command.includes('hello my name is');
 const askName = (command) => command.includes('what is my name');
@@ -172,6 +186,7 @@ const askDoingMath = (command) =>
     command.includes('/') ||
     command.includes('divided by')); // Assuming "divided by" is used for division
 const askSetTimer = (command) => command.includes('set a timer for');
+const askSomethingNice = (command) => command.includes('say something nice');
 
 //main function
 function getReply(command) {
@@ -217,6 +232,9 @@ function getReply(command) {
     case normalizedCommand === 'timer done':
       return 'Timer done';
 
+    case askSomethingNice(normalizedCommand):
+      return getNiceMessage();
+
     default:
       return `I didn't understand that command. Repeat, please`;
   }
@@ -251,3 +269,5 @@ console.log(getReply('What is 52 divided by free')); //I am afraid I did not cat
 console.log(getReply('Set a timer for 5 seconds')); //Timer set for 5 seconds
 // 5 seconds later:
 // Timer done
+
+console.log(getReply('Say something nice')); //Regular expressions are a piece of cake for you, Benjamin
