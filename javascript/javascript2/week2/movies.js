@@ -44596,7 +44596,57 @@ const getLongTitles = (movies) =>
     .filter((movie) => movie.title.split(' ').length >= minNumberWords)
     .map((movie) => movie.title);
 
-console.log(getLongTitles(movies));
+//Count the number of movies made between 1980-1989 (including both the years)
+const getNumberMoviesForPeriod = (movies) =>
+  movies.filter((movie) => movie.year >= 1980 && movie.year <= 1989).length;
+
+//Create a new array that has an extra key called tag. The tag is based on the rating:
+//Good (>= 7), Average (>= 4 and < 7), Bad (< 4)
+const moviesWithTag = (movies) =>
+  movies.map((movie) => {
+    let tag;
+    if (movie.rating < 4) {
+      tag = 'Bad';
+    } else if (movie.rating < 7) {
+      tag = 'Average';
+    } else {
+      tag = 'Good';
+    }
+    return { ...movie, tag };
+  });
+
+//Using chaining, first filter the movies array to only contain the movies rated higher than 6.
+//Now map the movies array to only the rating of the movies.
+const getRatingsHigher6 = (movies) =>
+  movies.filter((movie) => movie.rating > 6).map((movie) => movie.rating);
+
+//Count the total number of movies containing any of following keywords: Surfer, Alien or Benjamin.
+const getNumberMoviesWithKeywords = (movies, keywords) => {
+  const keywordsLowerCase = keywords.map((keyword) => keyword.toLowerCase());
+  let count = 0;
+  movies.forEach((movie) => {
+    if (
+      keywordsLowerCase.some((keyword) =>
+        movie.title.toLowerCase().includes(keyword)
+      )
+    ) {
+      count++;
+    }
+  });
+  return count;
+};
+
+// console.log(
+//   getNumberMoviesWithKeywords(movies, ['Surfer', 'Alien', 'Benjamin']) //19
+// );
+
+//Create an array of movies where a word in the title is duplicated
+const findDuplicatedWordsMovies = (movies) =>
+  movies.filter((movie) => {
+    const titleWords = movie.title.split(' ');
+    const wordsSet = new Set(titleWords); //Set stores only unique values
+    return titleWords.length !== wordsSet.size;
+  });
 
 // {
 //   title: "'A' gai wak",
@@ -44605,3 +44655,33 @@ console.log(getLongTitles(movies));
 //   votes: 11942,
 //   running_times: 6300,
 // }
+
+//Calculate the average rating of all the movies using reduce.
+const calcAverageRating = (movies) => {
+  const sum = movies.reduce((acc, movie) => acc + movie.rating, 0);
+  return sum / movies.length;
+};
+console.log(calcAverageRating(movies)); //6.626827026198841
+
+//Count the total number of Good, Average and Bad movies using reduce.
+//A return could fx be {goodMovies: 33, averageMovies: 45, goodMovies: 123}
+//Good (>= 7), Average (>= 4 and < 7), Bad (< 4)
+const classifyMovies = (movies) => {
+  const counter = {
+    goodMovies: 0,
+    averageMovies: 0,
+    badMovies: 0,
+  };
+  const output = movies.reduce((acc, movie) => {
+    if (movie.rating < 4) {
+      acc.badMovies += 1;
+    } else if (movie.rating < 7) {
+      acc.averageMovies += 1;
+    } else {
+      acc.goodMovies += 1;
+    }
+    return acc;
+  }, counter);
+  return output;
+};
+console.log(classifyMovies(movies)); //{ goodMovies: 2602, averageMovies: 3837, badMovies: 88 }
