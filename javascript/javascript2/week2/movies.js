@@ -44648,14 +44648,6 @@ const findDuplicatedWordsMovies = (movies) =>
     return titleWords.length !== wordsSet.size;
   });
 
-// {
-//   title: "'A' gai wak",
-//   year: 1983,
-//   rating: 7.4,
-//   votes: 11942,
-//   running_times: 6300,
-// }
-
 //Calculate the average rating of all the movies using reduce.
 const calcAverageRating = (movies) => {
   const sum = movies.reduce((acc, movie) => acc + movie.rating, 0);
