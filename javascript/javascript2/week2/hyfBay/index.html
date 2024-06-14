@@ -8,23 +8,43 @@
   />
 </head>
 <body>
+  <header>
+    <h1>Shop From Car To Puppy</h1>
+  </header>
   <main>
-    <section class="filter-section">
-      <label for="min-price">Lowest price</label>
-      <input type="number" value="" name="min-price" id="min-price" min="0" />
-      <label for="max-price">Highest price</label>
-      <input type="number" value="" name="max-price" id="max-price" min="0" />
-      <button id="filter-btn">Filter by price</button>
-    </section>
-    <section>
-      <label for="search-input" class="hidden">Search for a product</label>
-      <input
-        type="search"
-        name="search-input"
-        id="search-input"
-        placeholder="Search for a product"
-      />
-    </section>
+    <div class="filter-section">
+      <div>
+        <label for="min-price">Lowest price</label>
+        <input type="number" value="" name="min-price" id="min-price" min="0" />
+      </div>
+      <div>
+        <label for="max-price">Highest price</label>
+        <input type="number" value="" name="max-price" id="max-price" min="0" />
+      </div>
+
+      <button id="filter-btn" class="btn">Filter by price</button>
+    </div>
+    <div class="search-sort-container">
+      <div class="search-section">
+        <label for="search-input" class="hidden">Search for a product</label>
+        <input
+          type="search"
+          name="search-input"
+          id="search-input"
+          placeholder="Search for a product"
+        />
+      </div>
+      <div class="sort-section">
+        <label for="sort-select">Sort by:</label>
+        <select id="sort-select" name="sort-select">
+          <option value="" selected disabled>Choose sorting option</option>
+          <option value="alphabetical">price</option>
+          <option value="random">name</option>
+          <option value="random">rating</option>
+        </select>
+      </div>
+    </div>
+
     <section class="products-container"></section>
   </main>
   <script src="hyfBayHelpers.js"></script>

@@ -17,7 +17,7 @@ function renderProducts(products) {
   for (const product of products) {
     const { name, price, rating } = product;
     const newLi = document.createElement('li');
-    newLi.innerHTML = `<h2>${name}</h2><span>price: ${price}</span><br><span>Rating: ${rating}</span>`;
+    newLi.innerHTML = `<h2>${name}</h2><span>price: ${price} kr</span><br><span>Rating: ${rating}</span>`;
     newUl.appendChild(newLi);
   }
   productsEl.appendChild(newUl);
@@ -101,3 +101,5 @@ function filterProductsByName(products, keyword) {
     product.name.toLowerCase().includes(keyword.toLowerCase())
   );
 }
+
+//sorting
