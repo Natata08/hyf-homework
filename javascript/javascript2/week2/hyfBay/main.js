@@ -67,7 +67,6 @@ function filterProducts() {
   maxUserPrice = +maxPriceInput.value;
   const filteredProducts = getFilteredProducts(minUserPrice, maxUserPrice);
   if (filteredProducts.length === 0) {
-    console.log(filteredProducts);
     const message = document.createElement('p');
     message.innerText =
       'No products found. Try adjusting your filters to find what you are looking for.';
