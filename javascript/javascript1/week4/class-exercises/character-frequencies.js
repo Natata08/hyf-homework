@@ -2,11 +2,9 @@ function countCharacters(charactersArray) {
   const characterCounter = {};
   for (let i = 0; i < charactersArray.length; i++) {
     const character = charactersArray[i];
-    if (characterCounter.hasOwnProperty(character)) {
-      characterCounter[character] += 1; //already exist
-    } else {
-      characterCounter[character] = 1; //new one
-    }
+    characterCounter[character] = isNaN(characterCounter[character])
+      ? 1
+      : characterCounter[character] + 1;
   }
   return characterCounter; //{ a: 1, h: 1, p: 2, y: 1 }
 }

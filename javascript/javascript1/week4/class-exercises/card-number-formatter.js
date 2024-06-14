@@ -2,8 +2,7 @@ const groupSize = 4; //'1234 5678 9123 4..'
 
 function formatCreditCardNumber(number) {
   if (typeof number !== 'number') {
-    console.log('Error: The provided value is not a number!');
-    return;
+    return 'Error: The provided value is not a number!';
   }
   const stringFromNumber = String(number);
   const output = [];
@@ -29,4 +28,4 @@ console.log(formatCreditCardNumber(123456789123456789));
 //   original: 123456789123456780,
 //   formatted: '1234 5678 9123 4567 80'
 // }
-console.log(formatCreditCardNumber('19123456789')); //Error: It's not a number!
+console.log(formatCreditCardNumber('19123456789')); //Error: The provided value is not a number!
