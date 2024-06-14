@@ -1,0 +1,52 @@
+<head>
+  <title>HyfBay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="main.css" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:400,800"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <header>
+    <h1>Shop From Car To Puppy</h1>
+  </header>
+  <main>
+    <div class="filter-section">
+      <div>
+        <label for="min-price">Lowest price</label>
+        <input type="number" value="" name="min-price" id="min-price" min="0" />
+      </div>
+      <div>
+        <label for="max-price">Highest price</label>
+        <input type="number" value="" name="max-price" id="max-price" min="0" />
+      </div>
+
+      <button id="filter-btn" class="btn">Filter by price</button>
+    </div>
+    <div class="search-sort-container">
+      <div class="search-section">
+        <label for="search-input" class="hidden">Search for a product</label>
+        <input
+          type="search"
+          name="search-input"
+          id="search-input"
+          placeholder="Search for a product"
+        />
+      </div>
+      <div class="sort-section">
+        <label for="sort-select">Sort by:</label>
+        <select id="sort-select" name="sort-select">
+          <option value="" selected disabled>Choose sorting option</option>
+          <option value="price">price</option>
+          <option value="name">name</option>
+          <option value="rating">rating</option>
+        </select>
+      </div>
+    </div>
+
+    <section class="products-container"></section>
+  </main>
+  <script src="hyfBayHelpers.js"></script>
+  <script src="main.js"></script>
+</body>

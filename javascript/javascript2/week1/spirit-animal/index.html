@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spirit animal name generator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Spirit animal name generator</h1>
+      <section>
+        <input
+          type="text"
+          id="name"
+          class="name-input"
+          placeholder="Enter your name"
+        />
+        <label for="triggerSelect">Generate spirit animal on:</label>
+        <select id="triggerSelect">
+          <option value="click" selected>Button click</option>
+          <option value="hover">Mouse hover</option>
+          <option value="input">Text input</option>
+        </select>
+        <button class="btn">Find your spirit animal</button>
+        <div class="spirit-animal"></div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
