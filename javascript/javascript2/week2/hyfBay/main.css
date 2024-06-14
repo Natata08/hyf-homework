@@ -1,0 +1,27 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f9fbfd;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2 {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+main {
+  padding: 20px;
+}
+.filter-section {
+  display: flex;
+  gap: 20px;
+}
