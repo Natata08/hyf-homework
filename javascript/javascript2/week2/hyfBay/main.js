@@ -74,3 +74,30 @@ function filterProducts() {
   }
   renderProducts(filteredProducts);
 }
+
+//search
+const debounce = (fn, delay = 1000) => {
+  let timerId = null;
+  return () => {
+    clearTimeout(timerId);
+    timerId = setTimeout(() => fn(), delay);
+  };
+};
+
+const onInput = debounce(searchProducts, 1000);
+
+document.getElementById('search-input').addEventListener('input', () => {
+  onInput();
+});
+
+function searchProducts() {
+  const keyword = document.getElementById('search-input').value.trim();
+  const foundProducts = filterProductsByName(products, keyword);
+  renderProducts(foundProducts);
+}
+
+function filterProductsByName(products, keyword) {
+  return products.filter((product) =>
+    product.name.toLowerCase().includes(keyword.toLowerCase())
+  );
+}
