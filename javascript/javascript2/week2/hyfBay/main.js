@@ -17,7 +17,7 @@ function renderProducts(products) {
   for (const product of products) {
     const { name, price, rating } = product;
     const newLi = document.createElement('li');
-    newLi.innerHTML = `<h2>${name}</h2><span>price: ${price} kr</span><br><span>Rating: ${rating}</span>`;
+    newLi.innerHTML = `<h2>${name}</h2><span>Price: ${price} kr</span><br><span>Rating: ${rating}</span>`;
     newUl.appendChild(newLi);
   }
   productsEl.appendChild(newUl);
@@ -103,3 +103,32 @@ function filterProductsByName(products, keyword) {
 }
 
 //sorting
+document
+  .getElementById('sort-select')
+  .addEventListener('change', handleSorting);
+
+const sortProducts = (products, sortType) => {
+  console.log(sortType);
+  console.log(products);
+  return [...products].sort((a, b) => {
+    console.log(a[sortType]);
+    console.log(b[sortType]);
+    const productA = a[sortType];
+    const productB = b[sortType];
+
+    if (productA < productB) {
+      return -1;
+    }
+    if (productA > productB) {
+      return 1;
+    }
+    return 0;
+  });
+};
+
+function handleSorting() {
+  const sortType = document.getElementById('sort-select').value;
+  const sortedProducts = sortProducts(products, sortType);
+  console.log(sortedProducts);
+  renderProducts(sortedProducts);
+}
