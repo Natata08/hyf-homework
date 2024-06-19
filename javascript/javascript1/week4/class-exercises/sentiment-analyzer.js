@@ -34,11 +34,11 @@ const negativeWordsList = [
   'distressing',
 ];
 
-function getCommonWordsArray(sentenceArray, wordsList) {
+function getCommonWordsArray(sentence, wordsList) {
   const commonWords = [];
-  for (let i = 0; i < sentenceArray.length; i++) {
-    const word = sentenceArray[i];
-    if (wordsList.includes(word)) {
+  for (let i = 0; i < wordsList.length; i++) {
+    const word = wordsList[i];
+    if (sentence.includes(word)) {
       commonWords.push(word);
     }
   }
@@ -46,14 +46,15 @@ function getCommonWordsArray(sentenceArray, wordsList) {
 }
 
 function getSentimentScore(string) {
-  const wordsFromString = string.split(' ');
-  const positiveWords = getCommonWordsArray(wordsFromString, positiveWordsList);
-  const negativeWords = getCommonWordsArray(wordsFromString, negativeWordsList);
+  const positiveWords = getCommonWordsArray(string, positiveWordsList);
+  const negativeWords = getCommonWordsArray(string, negativeWordsList);
   const score = positiveWords.length - negativeWords.length;
   return { score, positiveWords, negativeWords };
 }
 
-const sentimentScoreObject = getSentimentScore('I am mega super awesome happy');
+const sentimentScoreObject = getSentimentScore(
+  'I am mega, super, awesome, happy'
+);
 
 console.log(sentimentScoreObject);
 /*
@@ -65,7 +66,7 @@ console.log(sentimentScoreObject);
 */
 
 const sentimentScoreObject1 = getSentimentScore(
-  'I am mega boring super gloomy sad happy'
+  'I am mega, boring, super, gloomy, sad, happy'
 );
 
 console.log(sentimentScoreObject1);
@@ -76,7 +77,7 @@ console.log(sentimentScoreObject1);
 // }
 
 const sentimentScoreObject2 = getSentimentScore(
-  'I am mega boring disappointing gloomy sad terrible'
+  'I am mega, boring, disappointing, gloomy, sad, terrible'
 );
 
 console.log(sentimentScoreObject2);
