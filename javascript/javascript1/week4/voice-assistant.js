@@ -208,7 +208,6 @@ function getReply(command) {
     //asking a name
     case askName(normalizedCommand):
       return sayName();
-      z;
 
     //adding an activity to a list of todo
     case addTodo(normalizedCommand):
