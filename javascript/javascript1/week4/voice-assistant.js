@@ -20,7 +20,11 @@ const capitalizeFirstLetter = (string) =>
 //functions that extract data
 const getName = (sentence) => {
   const userName = sentence.split('hello my name is ')[1]; //['', 'name']
-  return capitalizeFirstLetter(userName);
+  if (userName) {
+    return capitalizeFirstLetter(userName);
+  } else {
+    console.error('Username cannot be empty');
+  }
 };
 
 function getActivity(sentence, isAdding = true) {
@@ -55,6 +59,8 @@ function getTimeInfo(sentence) {
 
 //functions that return response
 function addUser(name) {
+  if (!name)
+    return 'I am afraid I did not catch your name. Could you repeat please';
   if (user.name !== name) {
     user.name = name;
     return `Nice to meet you ${user.name}`;
@@ -165,11 +171,11 @@ function getNiceMessage() {
     'You will soon be working as a web developer',
   ];
   const randomIndex = Math.floor(Math.random() * nicePhrases.length);
-  return `${nicePhrases[randomIndex]}, ${user.name}`;
+  return `${nicePhrases[randomIndex]} ${user.name ? user.name : ''}`;
 }
 
 //functions for recognizing a command
-const isSayHello = (command) => command.includes('hello my name is');
+const sayHello = (command) => command.includes('hello my name is');
 const askName = (command) => command.includes('what is my name');
 const addTodo = (command) =>
   command.startsWith('add') && command.endsWith('to my to-do');
@@ -195,13 +201,14 @@ function getReply(command) {
   const normalizedCommand = command.toLowerCase().trim();
   switch (true) {
     //greeting and introducing
-    case isSayHello(normalizedCommand):
+    case sayHello(normalizedCommand):
       const userName = getName(normalizedCommand);
       return addUser(userName);
 
     //asking a name
     case askName(normalizedCommand):
       return sayName();
+      z;
 
     //adding an activity to a list of todo
     case addTodo(normalizedCommand):
@@ -244,7 +251,11 @@ function getReply(command) {
 
 //Testing
 console.log(getReply('What is my name')); //It seems you haven't introduced yourself yet! What's your name?
+console.log(getReply('Say something nice')); //You are a great coder
 console.log(getReply('Hello my name is Benjamin')); //Nice to meet you Benjamin
+console.log(getReply('Hello my name is'));
+// console: Username cannot be empty
+// I am afraid I did not catch your name. Could you repeat please
 console.log(getReply('Hello my name is Benjamin')); //I already know you, Benjamin
 console.log(getReply('What is my name')); //Your name is Benjamin
 console.log(getReply('Add fishing to my to-do')); //fishing added to your to-do
