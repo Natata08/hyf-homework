@@ -1,16 +1,12 @@
 function countDanishLetters(sentence) {
   const danishLetters = ['æ', 'ø', 'å'];
-  const arrayFromSentence = sentence.toLowerCase().split('');
+  const lettersFromSentence = sentence.toLowerCase().split('');
   const letterCounter = { total: 0 };
-  for (let i = 0; i < arrayFromSentence.length; i++) {
-    const letter = arrayFromSentence[i];
+  for (let i = 0; i < lettersFromSentence.length; i++) {
+    const letter = lettersFromSentence[i];
     if (danishLetters.includes(letter)) {
       letterCounter.total++;
-      if (letterCounter.hasOwnProperty(letter)) {
-        letterCounter[letter]++;
-      } else {
-        letterCounter[letter] = 1;
-      }
+      letterCounter[letter] = (letterCounter[letter] || 0) + 1;
     }
   }
   return letterCounter;
