@@ -33,22 +33,25 @@ function SpiritNameHandler() {
 
 button.addEventListener('click', SpiritNameHandler);
 
-// Updating event listener based on selection
 selectTrigger.addEventListener('change', updateTrigger);
 
 function updateTrigger() {
-  //removing all listeners
   button.removeEventListener('click', SpiritNameHandler);
   nameInput.removeEventListener('input', SpiritNameHandler);
   nameInput.removeEventListener('mouseenter', SpiritNameHandler);
 
-  //adding listener based on dropdown selection
   const triggerType = selectTrigger.value;
-  if (triggerType === 'click') {
-    button.addEventListener('click', SpiritNameHandler);
-  } else if (triggerType === 'input') {
-    nameInput.addEventListener('input', SpiritNameHandler);
-  } else if (triggerType === 'hover') {
-    nameInput.addEventListener('mouseenter', SpiritNameHandler);
+  switch (triggerType) {
+    case 'click':
+      button.addEventListener('click', SpiritNameHandler);
+      break;
+    case 'input':
+      nameInput.addEventListener('input', SpiritNameHandler);
+      break;
+    case 'hover':
+      nameInput.addEventListener('mouseenter', SpiritNameHandler);
+      break;
+    default:
+      console.error('Invalid trigger type: ' + triggerType);
   }
 }
