@@ -44603,17 +44603,10 @@ const getNumberMoviesForPeriod = (movies) =>
 //Create a new array that has an extra key called tag. The tag is based on the rating:
 //Good (>= 7), Average (>= 4 and < 7), Bad (< 4)
 const moviesWithTag = (movies) =>
-  movies.map((movie) => {
-    let tag;
-    if (movie.rating < 4) {
-      tag = 'Bad';
-    } else if (movie.rating < 7) {
-      tag = 'Average';
-    } else {
-      tag = 'Good';
-    }
-    return { ...movie, tag };
-  });
+  movies.map((movie) => ({
+    ...movie,
+    tag: movie.rating >= 7 ? 'Good' : movie.rating >= 4 ? 'Average' : 'Bad',
+  }));
 
 //Using chaining, first filter the movies array to only contain the movies rated higher than 6.
 //Now map the movies array to only the rating of the movies.
