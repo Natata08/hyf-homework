@@ -61,6 +61,8 @@ VALUES (
 SELECT * FROM reservation WHERE id = 3;
 
 -- Update a reservation with any id. Update any attribute fx the title or multiple attributes
+UPDATE reservation SET number_of_guests = 3 WHERE id = 8;
+
 UPDATE reservation
 SET
     number_of_guests = 3,
@@ -103,3 +105,49 @@ WHERE
 
 -- Delete a review with any id
 DELETE FROM review WHERE id = 7;
+
+-- Additional queries
+-- Get meals that has a price smaller than a specific price
+SELECT * FROM meal WHERE price < 250;
+
+-- Get meals that still has available reservations
+SELECT m.*, SUM(r.number_of_guests) AS total_guests
+FROM meal m
+    LEFT JOIN reservation r ON m.id = r.meal_id
+GROUP BY
+    m.id
+HAVING
+    total_guests < m.max_reservations
+    OR total_guests IS NULL;
+
+-- Get meals that partially match a title. Rød grød med will match the meal with the title Rød grød med fløde
+SELECT * FROM meal WHERE title LIKE '%burger night%';
+
+-- Get meals that has been created between two dates
+SELECT *
+FROM meal
+WHERE
+    created_at BETWEEN '2024-07-22 00:00:00' AND '2024-07-23 23:59:59';
+
+-- Get only specific number of meals fx return only 5 meals
+SELECT * FROM meal LIMIT 5;
+
+-- Get the meals that have good reviews
+SELECT m.*, AVG(r.stars) AS avg_rating
+FROM meal m
+    JOIN review r ON m.id = r.meal_id
+GROUP BY
+    m.id
+HAVING
+    avg_rating > 4;
+
+-- Get reservations for a specific meal sorted by created_date
+SELECT * FROM reservation WHERE meal_id = 2 ORDER BY created_at;
+
+-- Sort all meals by average number of stars in the reviews
+SELECT m.*, AVG(r.stars) AS avg_rating
+FROM meal m
+    LEFT JOIN review r ON m.id = r.meal_id
+GROUP BY
+    m.id
+ORDER BY avg_rating DESC;
