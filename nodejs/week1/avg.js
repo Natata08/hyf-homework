@@ -34,16 +34,3 @@ const produceAverageOutput = (validArguments, invalidArguments) => {
 
 const { validArguments, invalidArguments } = parseArguments(arguments);
 console.log(produceAverageOutput(validArguments, invalidArguments));
-
-//node avg.js 13 7 4
-//Output:
-//8
-
-//node avg.js 1 two hello 4
-//Output:
-//Warning: The following arguments are not valid numbers and will be ignored: two, hello
-//2.5
-
-//node avg.js
-//Output:
-//No numbers provided
