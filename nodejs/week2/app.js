@@ -25,6 +25,18 @@ const searchByKeyword = (array, keyword) => {
 
 const searchById = (array, id) => array.find((obj) => obj.id === id);
 
+const filterArrayByFields = (array, fields) => {
+  const fieldKeys = Object.keys(fields);
+  return array.filter((obj) =>
+    fieldKeys.every(
+      (key) =>
+        obj[key] &&
+        obj[key].toString().toLowerCase() ===
+          fields[key].toString().toLowerCase()
+    )
+  );
+};
+
 app.get('/', (req, res) => {
   res.send('This is a search engine');
 });
@@ -46,6 +58,25 @@ app.get('/documents/:id', (req, res) => {
     res.status(404).json({ message: 'Document not found' });
   } else {
     res.json(foundedDocuments);
+  }
+});
+
+app.post('/search', (req, res) => {
+  const { q } = req.query;
+  const { fields } = req.body;
+  if (q && fields) {
+    return res.status(400).json({
+      message:
+        'Cannot provide both query parameter and fields in the request body',
+    });
+  }
+  if (q) {
+    const foundDocuments = searchByKeyword(documents, q);
+    return res.json(foundDocuments);
+  }
+  if (fields) {
+    const foundDocuments = filterArrayByFields(documents, fields);
+    return res.json(foundDocuments);
   }
 });
 
