@@ -11,17 +11,19 @@ try {
   const filePath = new URL('./documents.json', import.meta.url);
   const contents = await readFile(filePath, { encoding: 'utf8' });
   documents = JSON.parse(contents);
-} catch (err) {
-  console.error(err.message);
+} catch (error) {
+  console.error(error);
 }
 
 const searchByKeyword = (array, keyword) => {
-  return array.filter((doc) =>
-    Object.values(doc).some((item) =>
+  return array.filter((obj) =>
+    Object.values(obj).some((item) =>
       item.toString().toLowerCase().includes(keyword.toLowerCase())
     )
   );
 };
+
+const searchById = (array, id) => array.find((obj) => obj.id === id);
 
 app.get('/', (req, res) => {
   res.send('This is a search engine');
@@ -35,7 +37,16 @@ app.get('/search', (req, res) => {
     const foundDocuments = searchByKeyword(documents, q);
     res.json(foundDocuments);
   }
-  console.log(q);
+});
+
+app.get('/documents/:id', (req, res) => {
+  const docId = parseInt(req.params.id);
+  const foundedDocuments = searchById(documents, docId);
+  if (foundedDocuments.length === 0) {
+    res.status(404).json({ message: 'Document not found' });
+  } else {
+    res.json(foundedDocuments);
+  }
 });
 
 app.listen(port, () => {
