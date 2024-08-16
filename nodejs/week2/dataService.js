@@ -7,5 +7,6 @@ export async function loadDocuments() {
     return JSON.parse(contents);
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }
