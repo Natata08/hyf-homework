@@ -3,9 +3,13 @@ import { searchByKeyword, searchById, filterArrayByFields } from '../utils.js';
 
 let documents = [];
 
-loadDocuments().then((data) => {
-  documents = data;
-});
+loadDocuments()
+  .then((data) => {
+    documents = data;
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
 export const searchDocuments = (req, res) => {
   const { q } = req.query;
