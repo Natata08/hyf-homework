@@ -27,13 +27,16 @@ contactsAPIRouter.get('/', async (req, res) => {
   let query = knexInstance.select('*').from('contacts');
 
   if ('sort' in req.query) {
-    const orderBy = req.query.sort.toString();
-    if (orderBy.length > 0) {
-      query = query.orderByRaw(orderBy);
+    const [column, sortDirection] = req.query.sort
+      .split(' ')
+      .map((item) => item.toLowerCase());
+
+    const allowedColumnsToSort = ['id', 'first_name', 'last_name', 'email'];
+
+    if (allowedColumnsToSort.includes(column)) {
+      query = query.orderBy(column, sortDirection === 'desc' ? 'desc' : 'asc');
     }
   }
-
-  console.log('SQL', query.toSQL().sql);
 
   try {
     const data = await query;
