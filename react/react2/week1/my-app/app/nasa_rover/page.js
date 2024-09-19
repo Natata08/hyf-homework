@@ -6,7 +6,7 @@ import styles from "./page.module.css";
 const API_KEY = "xdX4gDrrI0BLcbfiQxJJqMrF7nufAkFBeCTemGSe";
 const marsRoverURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&page=2&api_key=${API_KEY}`;
 
-const MarsRoverPhotos = () => {
+export default function MarsRoverPhotos() {
   const [photos, setPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -76,6 +76,4 @@ const MarsRoverPhotos = () => {
       {renderContent()}
     </div>
   );
-};
-
-export default MarsRoverPhotos;
+}
