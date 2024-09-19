@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Layout from "../Layout.js";
 
 export default function BlogPost() {
   const pathname = usePathname();
@@ -13,9 +12,9 @@ export default function BlogPost() {
     .join(" ");
 
   return (
-    <Layout>
+    <>
       <h1 style={{ marginBottom: "1rem", textAlign: "center" }}>{title}</h1>
       <p>This is the content of {title}.</p>
-    </Layout>
+    </>
   );
 }

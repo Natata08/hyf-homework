@@ -1,4 +1,3 @@
-import Layout from "./Layout.js";
 import Link from "next/link";
 
 const blogPosts = [
@@ -9,7 +8,7 @@ const blogPosts = [
 
 export default function Blogs() {
   return (
-    <Layout>
+    <>
       <h1 style={{ marginBottom: "1rem", textAlign: "center" }}>Blog Posts</h1>
       <ul
         style={{
@@ -25,6 +24,6 @@ export default function Blogs() {
           </li>
         ))}
       </ul>
-    </Layout>
+    </>
   );
 }
