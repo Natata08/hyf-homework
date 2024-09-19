@@ -20,7 +20,7 @@ export default function Home() {
         </Link>
       </p>
       <p>
-        <Link href='/blog' className={styles.link}>
+        <Link href='/blogs' className={styles.link}>
           Task 3a. Routing and Navigation.
           <br />A Blog Website
         </Link>
