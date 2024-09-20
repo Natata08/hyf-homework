@@ -24,7 +24,7 @@ const navItems = [
   { text: "Task 2", href: "/nasa_rover" },
   { text: "Task 3", href: "/blogs" },
   { text: "Task 4", href: "/nasa_epic" },
-  { text: "Task 5", href: "/form" },
+  { text: "Task 5", href: "/signup_form" },
 ];
 
 function DrawerAppBar(props) {
