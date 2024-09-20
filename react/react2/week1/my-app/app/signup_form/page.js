@@ -104,7 +104,7 @@ export default function SignUpForm() {
       <Paper
         elevation={3}
         sx={{
-          mt: 4,
+          mt: 15,
           p: 4,
           backgroundColor: "#eee",
         }}
