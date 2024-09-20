@@ -8,6 +8,7 @@ import {
   Box,
   Paper,
   TextField,
+  Alert,
 } from "@mui/material";
 
 export default function SignUpForm() {
@@ -24,6 +25,8 @@ export default function SignUpForm() {
     email: false,
     phoneNumber: false,
   });
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const firstNameRef = useRef(null);
 
@@ -74,8 +77,22 @@ export default function SignUpForm() {
 
     if (isValid) {
       console.log("Form submitted:", formData);
+      setIsSubmitted(true);
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+      });
+      setErrors({
+        firstName: false,
+        lastName: false,
+        email: false,
+        phoneNumber: false,
+      });
     } else {
       console.log("Form contains errors.");
+      setIsSubmitted(false);
     }
   };
 
@@ -101,6 +118,7 @@ export default function SignUpForm() {
           <Typography variant='h4' component='h1' gutterBottom align='center'>
             Sign Up
           </Typography>
+
           <TextField
             required
             fullWidth
@@ -159,6 +177,14 @@ export default function SignUpForm() {
             Sign Up
           </Button>
         </Box>
+        {isSubmitted && (
+          <Alert
+            severity='success'
+            sx={{ marginTop: "1rem", backgroundColor: "#69bf6d73" }}
+          >
+            Form submitted successfully!
+          </Alert>
+        )}
       </Paper>
     </Container>
   );
