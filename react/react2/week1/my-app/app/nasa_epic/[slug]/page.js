@@ -54,7 +54,7 @@ export default function EpicImage() {
       {error && <p>{error}</p>}
       {imageUrl && (
         <>
-          <div style={{ position: "relative", width: "100%", height: "30rem" }}>
+          <div style={{ position: "relative", width: "100%", height: "40rem" }}>
             <Image
               style={{ objectFit: "contain" }}
               fill
