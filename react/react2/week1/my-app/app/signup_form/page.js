@@ -18,11 +18,42 @@ export default function SignUpForm() {
     phoneNumber: "",
   });
 
+  const [errors, setErrors] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    phoneNumber: false,
+  });
+
   const firstNameRef = useRef(null);
 
   useEffect(() => {
     firstNameRef.current?.focus();
   }, []);
+
+  const validateField = (name, value) => {
+    let isValid = true;
+
+    switch (name) {
+      case "firstName":
+      case "lastName":
+        isValid = value.trim() !== "";
+        break;
+      case "email":
+        isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        break;
+      case "phoneNumber":
+        isValid = /^\d{10}$/.test(value);
+        break;
+      default:
+        break;
+    }
+
+    setErrors((prevState) => ({
+      ...prevState,
+      [name]: !isValid,
+    }));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,11 +61,22 @@ export default function SignUpForm() {
       ...prevState,
       [name]: value,
     }));
+
+    validateField(name, value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    const isValid = Object.keys(formData).every((key) => {
+      validateField(key, formData[key]);
+      return !errors[key];
+    });
+
+    if (isValid) {
+      console.log("Form submitted:", formData);
+    } else {
+      console.log("Form contains errors.");
+    }
   };
 
   return (
@@ -68,6 +110,8 @@ export default function SignUpForm() {
             value={formData.firstName}
             onChange={handleChange}
             inputRef={firstNameRef}
+            error={errors.firstName}
+            helperText={errors.firstName ? "First name is required" : ""}
           />
           <TextField
             required
@@ -77,6 +121,8 @@ export default function SignUpForm() {
             name='lastName'
             value={formData.lastName}
             onChange={handleChange}
+            error={errors.lastName}
+            helperText={errors.lastName ? "Last name is required" : ""}
           />
           <TextField
             required
@@ -87,6 +133,8 @@ export default function SignUpForm() {
             type='email'
             value={formData.email}
             onChange={handleChange}
+            error={errors.email}
+            helperText={errors.email ? "Enter a valid email" : ""}
           />
           <TextField
             required
@@ -97,6 +145,10 @@ export default function SignUpForm() {
             type='tel'
             value={formData.phoneNumber}
             onChange={handleChange}
+            error={errors.phoneNumber}
+            helperText={
+              errors.phoneNumber ? "Enter a valid 10-digit phone number" : ""
+            }
           />
           <Button
             type='submit'
