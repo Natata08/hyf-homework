@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -17,6 +17,12 @@ export default function SignUpForm() {
     email: "",
     phoneNumber: "",
   });
+
+  const firstNameRef = useRef(null);
+
+  useEffect(() => {
+    firstNameRef.current?.focus();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,6 +67,7 @@ export default function SignUpForm() {
             name='firstName'
             value={formData.firstName}
             onChange={handleChange}
+            inputRef={firstNameRef}
           />
           <TextField
             required
