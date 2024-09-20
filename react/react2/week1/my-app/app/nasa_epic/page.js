@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
+import Button from "@mui/material/Button";
 
 export default function EpicHomePage() {
   const dateRef = useRef(null);
@@ -30,9 +31,20 @@ export default function EpicHomePage() {
           required
           style={{ marginRight: "1rem", marginTop: "1rem" }}
         />
-        <button type='submit' style={{ textTransform: "uppercase" }}>
+        <Button
+          type='submit'
+          variant='contained'
+          size='medium'
+          sx={{
+            backgroundColor: "#fff",
+            color: "#333",
+            "&:hover": {
+              backgroundColor: "gray",
+            },
+          }}
+        >
           Show Image
-        </button>
+        </Button>
       </form>
     </div>
   );

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import Button from "@mui/material/Button";
 
 export default function EpicImage() {
   const [imageUrl, setImageUrl] = useState(null);
@@ -63,11 +64,23 @@ export default function EpicImage() {
               className='max-w-full h-auto'
             />
           </div>
-          <Link href='/nasa_epic'>
-            <button style={{ textTransform: "uppercase" }}>
-              Choose another date
-            </button>
-          </Link>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Link href='/nasa_epic'>
+              <Button
+                variant='outlined'
+                size='medium'
+                sx={{
+                  backgroundColor: "#fff",
+                  color: "#333",
+                  "&:hover": {
+                    backgroundColor: "gray",
+                  },
+                }}
+              >
+                Choose another date
+              </Button>
+            </Link>
+          </div>
         </>
       )}
     </div>
