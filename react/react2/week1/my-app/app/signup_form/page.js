@@ -10,6 +10,7 @@ import {
   TextField,
   Alert,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -29,6 +30,7 @@ export default function SignUpForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const firstNameRef = useRef(null);
+  const router = useRouter();
 
   useEffect(() => {
     firstNameRef.current?.focus();
@@ -90,6 +92,7 @@ export default function SignUpForm() {
         email: false,
         phoneNumber: false,
       });
+      setTimeout(() => router.push("/"), 2000);
     } else {
       console.log("Form contains errors.");
       setIsSubmitted(false);
