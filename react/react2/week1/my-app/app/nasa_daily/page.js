@@ -5,7 +5,7 @@ const API_KEY = "xdX4gDrrI0BLcbfiQxJJqMrF7nufAkFBeCTemGSe";
 const astronomyPicOfTheDayURL = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
 
 export default async function AstronomyDailyPicturePage() {
-  const res = await fetch(astronomyPicOfTheDayURL);
+  const res = await fetch(astronomyPicOfTheDayURL, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to fetch astronomy picture of the day");
   const pictureData = await res.json();
 
